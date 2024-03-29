@@ -16,6 +16,7 @@ import Logo from "@/../../public/images/logo.png"
 import { CREDENTIALS, LOGIN, REGISTER } from '@/constant/const';
 import { PROFILES } from '@/constant/routeNames';
 import { API } from '@/constant/apiEndpoints';
+import CircularIcon from '@/components/CircularIcon/CircularIcon';
 
 const Auth = () => {
     const router = useRouter();
@@ -95,12 +96,8 @@ const Auth = () => {
                         </div>
                         <Button label={variant === 'login' ? 'Login' : 'Sign up'} onClick={variant === 'login' ? loginUserHandler : registerUserHandler} />
                         <div className="flex flex-row items-center gap-4 mt-8 justify-center">
-                            <div onClick={() => signIn('google', { callbackUrl: '/profiles' })} className="w-10 h-10 bg-white rounded-full flex items-center justify-center cursor-pointer hover:opacity-80 transition">
-                                <FcGoogle size={32} />
-                            </div>
-                            <div onClick={() => signIn('github', { callbackUrl: '/profiles' })} className="w-10 h-10 bg-white rounded-full flex items-center justify-center cursor-pointer hover:opacity-80 transition">
-                                <FaGithub size={32} />
-                            </div>
+                            <CircularIcon icon={FcGoogle} size={32} onClick={() => signIn('google', { callbackUrl: '/profiles' })} />
+                            <CircularIcon icon={FaGithub} size={32} onClick={() => signIn('github', { callbackUrl: '/profiles' })} />
                         </div>
                         <p className="text-neutral-500 mt-12">
                             {variant === 'login' ? 'First time using Netflix?' : 'Already have an account?'}
