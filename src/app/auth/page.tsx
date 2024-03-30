@@ -13,10 +13,10 @@ import Heading from '@/components/Heading/Heading';
 import Input from '@/components/Input/Input';
 
 import Logo from "@/../../public/images/logo.png"
-import { CREDENTIALS, LOGIN, REGISTER } from '@/constant/const';
-import { PROFILES } from '@/constant/routeNames';
-import { API } from '@/constant/apiEndpoints';
 import CircularIcon from '@/components/CircularIcon/CircularIcon';
+import { CREDENTIALS, LOGIN_TYPE, REGISTER_TYPE } from '@/constant/const';
+import { PROFILES } from '@/constant/routeNames';
+import { API, REGISTER } from '@/constant/apiEndpoints';
 
 const Auth = () => {
     const router = useRouter();
@@ -24,17 +24,17 @@ const Auth = () => {
     const [userEmail, setUserEmail] = useState('');
     const [userName, setUserName] = useState('');
     const [userPassword, setUserPassword] = useState('');
-    const [variant, setVariant] = useState(LOGIN);
+    const [variant, setVariant] = useState(LOGIN_TYPE);
 
     const toggleVariant = useCallback(() => {
-        setVariant((currentVariant) => currentVariant === LOGIN ? REGISTER : LOGIN);
+        setVariant((currentVariant) => currentVariant === LOGIN_TYPE ? REGISTER_TYPE : LOGIN_TYPE);
     }, []);
 
     const loginUserHandler = useCallback(async () => {
         try {
             await signIn(CREDENTIALS, {
-                userEmail,
-                userPassword,
+                email:userEmail,
+                password:userPassword,
                 redirect: false,
                 callbackUrl: '/'
             });
@@ -47,7 +47,7 @@ const Auth = () => {
 
     const registerUserHandler = useCallback(async () => {
         try {
-            const url = API + PROFILES
+            const url = API + REGISTER
             await axios.post(url, {
                 userEmail,
                 userName,
@@ -68,9 +68,9 @@ const Auth = () => {
                 </nav>
                 <div className="flex justify-center">
                     <div className="bg-black bg-opacity-70 px-16 py-16 self-center mt-2 lg:w-2/5 lg:max-w-md rounded-md w-full">
-                        <Heading label={variant === 'login' ? 'Sign in' : 'Register'} />
+                        <Heading label={variant === LOGIN_TYPE ? 'Sign in' : 'Register'} />
                         <div className="flex flex-col gap-4">
-                            {variant === 'register' && (
+                            {variant === REGISTER_TYPE && (
                                 <Input
                                     id="name"
                                     type="text"
