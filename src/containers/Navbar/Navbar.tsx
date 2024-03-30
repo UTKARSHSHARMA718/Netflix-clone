@@ -2,6 +2,7 @@
 
 import React, { useCallback, useEffect, useState } from 'react';
 import { usePathname } from 'next/navigation';
+import Image from 'next/image';
 import { BellIcon, MagnifyingGlassIcon, ChevronDownIcon } from '@heroicons/react/24/outline';
 
 import AccountMenu from '@/components/AccountMenu/AccountMenu';
@@ -44,9 +45,8 @@ const Navbar = () => {
     return (
         <nav className="w-full fixed z-40">
             <div className={`px-4 md:px-16 py-6 flex flex-row items-center transition duration-500 ${showBackground ? 'bg-zinc-900 bg-opacity-90' : ''}`}>
-                <img src="/images/logo.png" className="h-4 lg:h-7" alt="Logo" />
-                <div className="flex-row ml-8 gap-7 hidden lg:flex">
-                    <NavbarItem label="Home" active />
+                <Image src="/images/logo.png" width={200} height={200} className="h-4 lg:h-7" alt="Logo" />
+                <div className="flex-row ml-8 gap-7 hidden md:flex">
                     {MOBILE_MENU_OPTIONS?.map(items => {
                         return <NavbarItem label={items?.label} key={items?.label} active={compareStrings(pathName, items?.routeName)} />
                     })}
@@ -65,7 +65,7 @@ const Navbar = () => {
                     </div>
                     <div onClick={toggleAccountMenu} className="flex flex-row items-center gap-2 cursor-pointer relative">
                         <div className="w-6 h-6 lg:w-10 lg:h-10 rounded-md overflow-hidden">
-                            <img src="/images/default-blue.png" alt="" />
+                            <Image src="/images/default-blue.png" width={50} height={50} alt="user-image" />
                         </div>
                         <ChevronDownIcon className={`w-4 text-white fill-white transition ${showAccountMenu ? 'rotate-180' : 'rotate-0'}`} />
                         <AccountMenu visible={showAccountMenu} />

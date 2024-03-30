@@ -1,18 +1,24 @@
+'use client'
+
 import { useCallback } from "react";
 import { useRouter } from "next/navigation";
 
 import UserCard from "@/components/UserCard/UserCard";
-import { getCurrentUser } from "@/actions/getCurrentUser";
 import { AUTH, HOME } from "@/constant/routeNames";
+import { SafeUser } from "@/Types/SafeTypes";
 
-const App = async () => {
+interface AppContent {
+    currentUser: SafeUser | null
+}
+
+const AppContent: React.FC<AppContent> = ({ currentUser }) => {
+    console.log({currentUser});
     const router = useRouter();
-    const currentUser = await getCurrentUser();
-
-    if (!currentUser) {
-        router?.push(AUTH);
-        return;
-    }
+    // TODO: try to fix this
+    // if (!currentUser) {
+    //     router?.push(AUTH);
+    //     return;
+    // }
 
     const selectProfile = useCallback(() => {
         router.push(HOME);
@@ -32,4 +38,4 @@ const App = async () => {
     );
 }
 
-export default App;
+export default AppContent;

@@ -1,27 +1,22 @@
-import { NextApiRequest } from "next";
-//@ts-ignore
+import { NextRequest, NextResponse } from "next/server";
 import bcrypt from "bcrypt";
 
 import prismadb from "@/libs/prisma-db/prisma-db";
-import { NextResponse } from "next/server";
 
-export default async function POST(req: NextApiRequest) {
+export async function POST(req: NextRequest) {
   try {
-    if (req.method !== "POST") {
-      return NextResponse.json(
-        { ok: false, message: "Invalid request!" },
-        { status: 400 }
-      );
-    }
+    console.log("called...");
+    const body = await req.json();
+    const { userEmail, userName, userPassword } = body;
 
-    const { email, name, password } = req.body;
-
-    const existingUser = await prismadb.user.findUnique({
+    console.log("1", {});
+    const existingUser = await prismadb.user.findFirst({
       where: {
-        email,
+        email: userEmail,
       },
     });
 
+    console.log("2");
     if (existingUser) {
       return NextResponse.json(
         { ok: false, message: "Email taken!" },
@@ -29,23 +24,27 @@ export default async function POST(req: NextApiRequest) {
       );
     }
 
-    const hashedPassword = await bcrypt.hash(password, 12);
+    console.log("3");
+    const hashedPassword = await bcrypt.hash(userPassword, 12);
+    console.log("4");
 
     const user = await prismadb.user.create({
       data: {
-        email,
-        name,
+        email: userEmail,
+        name: userName,
         hashedPassword,
         image: "",
         emailVerified: new Date(),
       },
     });
+    console.log("5");
 
     return NextResponse.json(
-      { ok: true, message: "Register Successfully!" },
+      { ok: true, message: "Register Successfully!", data: user },
       { status: 200 }
     );
   } catch (error) {
+    console.log("Error while creating user: " + error);
     return NextResponse.json(
       { ok: false, message: "Something went wrong!" },
       { status: 400 }
