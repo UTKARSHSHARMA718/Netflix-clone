@@ -51,7 +51,7 @@ const Navbar = () => {
                         return <NavbarItem label={items?.label} key={items?.label} active={compareStrings(pathName, items?.routeName)} />
                     })}
                 </div>
-                <div onClick={toggleMobileMenu} className="lg:hidden flex flex-row items-center gap-2 ml-8 cursor-pointer relative">
+                <div onClick={toggleMobileMenu} className="md:hidden flex flex-row items-center gap-2 ml-8 cursor-pointer relative">
                     <p className="text-white text-sm">Browse</p>
                     <ChevronDownIcon className={`w-4 text-white fill-white transition ${showMobileMenu ? 'rotate-180' : 'rotate-0'}`} />
                     <MobileMenu visible={showMobileMenu} />
