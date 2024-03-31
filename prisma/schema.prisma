@@ -14,33 +14,33 @@ datasource db {
 }
 
 model User {
-  id String @id @default(auto()) @map("_id") @db.ObjectId
-  name String
-  image String?
-  email String? @unique
-  emailVerified DateTime?
+  id             String    @id @default(auto()) @map("_id") @db.ObjectId
+  name           String
+  image          String?
+  email          String?   @unique
+  emailVerified  DateTime?
   hashedPassword String?
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  favoriteIds String[] @db.ObjectId
-  
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+  favoriteIds    String[]  @db.ObjectId
+
   sessions Session[]
   accounts Account[]
 }
 
 model Account {
-  id String @id @default(auto()) @map("_id") @db.ObjectId
-  userId             String   @db.ObjectId
-  type               String
-  provider           String
-  providerAccountId  String
-  refresh_token      String?  @db.String
-  access_token       String?  @db.String
-  expires_at         Int?
-  token_type         String?
-  scope              String?
-  id_token           String?  @db.String
-  session_state      String?
+  id                String  @id @default(auto()) @map("_id") @db.ObjectId
+  userId            String  @db.ObjectId
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.String
+  access_token      String? @db.String
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.String
+  session_state     String?
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
@@ -48,13 +48,21 @@ model Account {
 }
 
 model Movies {
-  id           String @id @default(auto()) @map("_id") @db.ObjectId
+  id           String   @id @default(auto()) @map("_id") @db.ObjectId
   description  String
   title        String
   duration     String
   genre        String
   videoUrl     String
   thumbnailUrl String
+  rating Int
+  cast String[]
+  releasedOn DateTime
+  resolution String[]
+  minutes Int
+  langauges    String[]
+  directedBy String[]
+  type String
 }
 
 model VerificationToken {
@@ -72,5 +80,5 @@ model Session {
   userId       String   @db.ObjectId
   expires      DateTime
 
-  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
