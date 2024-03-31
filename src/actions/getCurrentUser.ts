@@ -2,7 +2,7 @@
 
 import prisma from "@/libs/prisma-db/prisma-db";
 import { getServerSession } from "next-auth";
-import { authOptions } from "@/app/api/auth/[...nextauth]";
+import { authOptions } from "@/pages/api/auth/[...nextauth]";
 import { SafeUser } from "@/Types/SafeTypes";
 
 const getSession = async () => {

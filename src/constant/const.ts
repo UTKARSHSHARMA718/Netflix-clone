@@ -29,3 +29,6 @@ export const MOBILE_MENU_OPTIONS = [
   { label: "My List", routeName: MY_LIST },
   { label: "Browse by Language", routeName: BROWSE_BY_LANGUAGES },
 ];
+
+export const MOVIE_TYPE = "movie";
+export const SERIES_TYPE = "series";
