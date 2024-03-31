@@ -13,7 +13,6 @@ import Heading from '@/components/Heading/Heading';
 import Input from '@/components/Input/Input';
 
 import Logo from "@/../../public/images/logo.png"
-import CircularIcon from '@/components/CircularIcon/CircularIcon';
 import { CREDENTIALS, LOGIN_TYPE, REGISTER_TYPE } from '@/constant/const';
 import { PROFILES } from '@/constant/routeNames';
 import { API, REGISTER } from '@/constant/apiEndpoints';
@@ -95,10 +94,6 @@ const Auth = () => {
                             />
                         </div>
                         <Button label={variant === 'login' ? 'Login' : 'Sign up'} onClick={variant === 'login' ? loginUserHandler : registerUserHandler} />
-                        <div className="flex flex-row items-center gap-4 mt-8 justify-center">
-                            <CircularIcon icon={FcGoogle} size={32} onClick={() => signIn('google', { callbackUrl: '/profiles' })} />
-                            <CircularIcon icon={FaGithub} size={32} onClick={() => signIn('github', { callbackUrl: '/profiles' })} />
-                        </div>
                         <p className="text-neutral-500 mt-12">
                             {variant === 'login' ? 'First time using Netflix?' : 'Already have an account?'}
                             <span onClick={toggleVariant} className="text-white ml-1 hover:underline cursor-pointer">

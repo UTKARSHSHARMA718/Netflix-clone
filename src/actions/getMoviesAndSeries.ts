@@ -1,3 +1,5 @@
+"use server";
+
 import prisma from "@/libs/prisma-db/prisma-db";
 
 interface IMoviesAndSeries {
@@ -15,7 +17,6 @@ interface IMoviesAndSeries {
 
 export const getMoviesAndSeries = async (props?: IMoviesAndSeries) => {
   try {
-    console.log("starting....");
     const releasedAfter = props?.releasedAfter;
     const directedBy = props?.directedBy;
     const cast = props?.cast;
@@ -95,7 +96,6 @@ export const getMoviesAndSeries = async (props?: IMoviesAndSeries) => {
       };
     }
 
-    console.log("starting.... 111");
     const res = await prisma.movies.findMany({
       where: query,
       orderBy: [
@@ -107,7 +107,6 @@ export const getMoviesAndSeries = async (props?: IMoviesAndSeries) => {
 
     return res;
   } catch (error: any) {
-    console.log("starting....222");
     console.log("Error while getting movies and series: " + error);
     return null;
   }

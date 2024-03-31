@@ -1,19 +1,21 @@
 "use client"
 
-import React, { useCallback } from 'react';
+import React, { useCallback, useContext } from 'react';
 import { InformationCircleIcon } from '@heroicons/react/24/outline';
 
 import PlayButton from '@/components/PlayButton/PlayButton';
 import { Movies } from '@prisma/client';
+import { GlobalContext } from '@/context/GlobalContext';
 
 interface BillboardProps {
     allMoviesAndSeries: Movies[] | null
 }
 
 const Billboard: React.FC<BillboardProps> = ({ allMoviesAndSeries }) => {
-    //   const { openModal } = useInfoModalStore(); // use global context for it
+    //@ts-ignore
+    const { globalState, setGlobalState } = useContext(GlobalContext);
+    console.log({ globalState });
 
-    console.log({ allMoviesAndSeries })
     if (!allMoviesAndSeries) {
         return <p>Something went wrong!</p>
     }
@@ -22,6 +24,13 @@ const Billboard: React.FC<BillboardProps> = ({ allMoviesAndSeries }) => {
 
     const handleOpenModal = useCallback(() => {
         // openModal(data?.id);
+        setGlobalState((prev: any) => {
+            return {
+                ...prev,
+                movieOrSeriesId: data?.id,
+                isInfoModalOpen: true,
+            }
+        })
     }, [data?.id]);
 
 
@@ -37,7 +46,7 @@ const Billboard: React.FC<BillboardProps> = ({ allMoviesAndSeries }) => {
                     {data?.description}
                 </p>
                 <div className="flex flex-row items-center mt-3 md:mt-4 gap-3">
-                    <PlayButton movieId={data?.id} />
+                    <PlayButton movieOrSeriesId={data?.id} />
                     <button
                         onClick={handleOpenModal}
                         className="

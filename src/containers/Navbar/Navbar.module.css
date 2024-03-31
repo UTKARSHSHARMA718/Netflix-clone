@@ -1,0 +1,31 @@
+.navlinksContainer {
+  display: flex;
+  gap: 24px;
+  width: 100%;
+  margin-left: 12px;
+}
+
+.logo{
+    width: 12vw;
+    max-width: 180px;
+    min-width: 80px;
+    margin-right: 3rem;
+}
+
+.navContainer {
+  position: fixed;
+  z-index: 20;
+}
+
+.mobileOptions {
+  display: none;
+}
+
+@media (max-width: 1024px) {
+  .mobileOptions {
+    display: flex;
+  }
+  .navlinksContainer{
+    display: none;
+  }
+}

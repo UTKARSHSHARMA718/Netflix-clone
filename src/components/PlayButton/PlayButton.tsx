@@ -5,15 +5,15 @@ import { useRouter } from 'next/navigation';
 import { PlayIcon } from '@heroicons/react/24/solid';
 
 interface PlayButtonProps {
-  movieId: string;
+  movieOrSeriesId: string;
 }
 
-const PlayButton: React.FC<PlayButtonProps> = ({ movieId }) => {
+const PlayButton: React.FC<PlayButtonProps> = ({ movieOrSeriesId }) => {
   const router = useRouter();
 
   return (
     <button 
-      onClick={() => router.push(`/watch/${movieId}`)}
+      onClick={() => router.push(`/watch/${movieOrSeriesId}`)}
       className="
         bg-white 
         rounded-md 
