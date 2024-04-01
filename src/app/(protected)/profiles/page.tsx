@@ -1,4 +1,4 @@
-import AppContent from "@/app/profiles/_content/Content";
+import AppContent from "@/app/(protected)/profiles/_content/Content";
 import { getCurrentUser } from "@/actions/getCurrentUser";
 
 const App = async () => {

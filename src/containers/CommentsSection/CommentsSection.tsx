@@ -1,9 +1,10 @@
 "use client"
 
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 
 import AddCommentSection from '@/components/AddCommentSection/AddCommentSection';
 import Comment from '@/components/Comment/Comment';
+import { GlobalContext } from '@/context/GlobalContext';
 import { DUMMY_COMMENTS_DATA } from '@/constant/dummyCommentsData';
 
 interface movieOrSeriesId {
@@ -11,15 +12,29 @@ interface movieOrSeriesId {
 }
 
 const CommentsSection: React.FC<movieOrSeriesId> = ({ movieOrSeriesId }) => {
-    const [commentsData, setCommetsData] = useState(
-        DUMMY_COMMENTS_DATA?.filter((item) => item?.listingId === movieOrSeriesId)?.[0]
-    );
+    // @ts-ignore
+    const { globalState, setGlobalState } = useContext(GlobalContext);
+    const commentsData = globalState?.commentsData?.filter((item: any) => item?.listingId === movieOrSeriesId)?.[0] || { listingId: movieOrSeriesId, comments: [] };
+    // const [commentsData, setCommetsData] = useState(
+    //     DUMMY_COMMENTS_DATA?.filter((item) => item?.listingId === movieOrSeriesId)?.[0]
+    // );
+    const setCommetsData = (updatedCommentsData: any) => {
+        const comments = globalState?.commentsData?.filter((item: any) => item?.listingId !== movieOrSeriesId)
+        console.log({ commentsData, comments, updatedCommentsData });
+        setGlobalState((prev: any) => {
+            return {
+                ...prev,
+                commentsData: [...(comments || []), { listingId: commentsData?.listingId, comments: updatedCommentsData }],
+            }
+        })
+    }
+    console.log({ commentsData });
 
     return (
         <div className='flex flex-col gap-4'>
-            <AddCommentSection  {...{ setCommetsData }} />
+            <AddCommentSection {...{ setCommetsData, commentsData }} />
             <div className='p-3 flex flex-col gap-3'>
-                {commentsData?.comments?.filter(v => v)?.map((comment) => {
+                {commentsData?.comments?.filter((v:any) => v)?.map((comment:any) => {
                     return (
                         <Comment
                             text={comment?.text}

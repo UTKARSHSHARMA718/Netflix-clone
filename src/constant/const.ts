@@ -1,5 +1,5 @@
 import {
-  BROWSE_BY_LANGUAGES,
+  BROWSE_BY_FILTER,
   FILMS,
   HOME,
   MY_LIST,
@@ -27,7 +27,7 @@ export const MOBILE_MENU_OPTIONS = [
   { label: "Films", routeName: FILMS },
   { label: "New & Popular", routeName: NEW_AND_POPULAR },
   { label: "My List", routeName: MY_LIST },
-  { label: "Browse by Language", routeName: BROWSE_BY_LANGUAGES },
+  { label: "Browse by Filter", routeName: BROWSE_BY_FILTER },
 ];
 
 export const MOVIE_TYPE = "movie";

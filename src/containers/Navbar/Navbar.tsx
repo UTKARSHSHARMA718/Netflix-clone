@@ -8,8 +8,9 @@ import { BellIcon, MagnifyingGlassIcon, ChevronDownIcon } from '@heroicons/react
 import AccountMenu from '@/components/AccountMenu/AccountMenu';
 import MobileMenu from '@/components/MobileMenu/MobileMenu';
 import NavbarItem from '@/components/NavbarItem/NavbarItem';
-import { MOBILE_MENU_OPTIONS, DISTANCE_TO_MAKE_NAVBAR_DARK } from '@/constant/const';
 import { compareStrings } from '@/libs/utils/utils';
+import { HOME } from '@/constant/routeNames';
+import { MOBILE_MENU_OPTIONS, DISTANCE_TO_MAKE_NAVBAR_DARK } from '@/constant/const';
 import { SafeUser } from '@/Types/SafeTypes';
 import styles from './Navbar.module.css'
 
@@ -52,7 +53,7 @@ const Navbar:React.FC<INavbar> = ({currentUser}) => {
     return (
         <nav className={`w-full fixed z-40 ${styles.navContainer}`}>
             <div className={`px-4 md:px-16 py-6 flex flex-row items-center transition duration-500 ${showBackground ? 'bg-zinc-900 bg-opacity-90' : ''}`}>
-                <Image src="/images/logo.png" width={200} height={200} className={`h-4 lg:h-7 ${styles.logo}`} alt="Logo" />
+                <Image src="/images/logo.png" width={200} height={200} className={`h-4 lg:h-7 ${styles.logo}`} alt="Logo" onClick={()=>router?.push(HOME)} />
                 <div className={`flex-row ml-8 gap-7 hidden md:flex ${styles.navlinksContainer}`}>
                     {MOBILE_MENU_OPTIONS?.map(items => {
                         return <NavbarItem label={items?.label} key={items?.label} active={compareStrings(pathName, items?.routeName)} onClick={()=>router?.push(items?.routeName)} />

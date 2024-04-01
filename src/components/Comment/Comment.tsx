@@ -50,10 +50,11 @@ const Comment: React.FC<CommentsProps> = ({
         const updatedValue = allCommentsData?.comments?.map((item: any) => {
             return addNewComment(item, commentId, replyText);
         });
-        setCommetsData({
-            ...allCommentsData,
-            comments: updatedValue,
-        });
+        // setCommetsData({
+        //     ...allCommentsData,
+        //     comments: updatedValue,
+        // });
+        setCommetsData(updatedValue)
         setReplyText("");
         setIsShowAllReplies(true)
     };
@@ -62,20 +63,22 @@ const Comment: React.FC<CommentsProps> = ({
         const updatedValue = allCommentsData?.comments?.map((item: any) => {
             return likeOrUnlikeComment(item, commentId);
         });
-        setCommetsData({
-            ...allCommentsData,
-            comments: updatedValue,
-        });
+        // setCommetsData({
+        //     ...allCommentsData,
+        //     comments: updatedValue,
+        // });
+        setCommetsData(updatedValue)
     }
 
     const deleteCommentOrReply = () => {
         const updatedValue = allCommentsData?.comments?.map((item: any) => {
             return deleteComment(item, commentId);
         });
-        setCommetsData({
-            ...allCommentsData,
-            comments: updatedValue,
-        });
+        // setCommetsData({
+        //     ...allCommentsData,
+        //     comments: updatedValue,
+        // });
+        setCommetsData(updatedValue)
     }
     console.log({ allCommentsData })
 

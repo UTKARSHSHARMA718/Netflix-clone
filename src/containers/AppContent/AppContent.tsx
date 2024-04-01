@@ -2,7 +2,7 @@
 
 import React, { useContext } from 'react'
 
-import DetailsModal from '@/components/DetailsModal/DetailsModal'
+import DetailsModal from '@/components/DetailsModal/DetailsModal';
 import { GlobalContext } from '@/context/GlobalContext';
 
 const AppContent = () => {

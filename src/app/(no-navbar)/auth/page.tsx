@@ -1,6 +1,7 @@
 "use client"
 
 import React, { useCallback, useState } from 'react';
+import toast from 'react-hot-toast';
 import Image from 'next/image';
 import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
@@ -22,6 +23,7 @@ const Auth = () => {
     const [userName, setUserName] = useState('');
     const [userPassword, setUserPassword] = useState('');
     const [variant, setVariant] = useState(LOGIN_TYPE);
+    const isButtonDisabled = variant === LOGIN_TYPE ? (!userEmail || !userPassword) : (!userEmail || !userPassword || !userName)
 
     const toggleVariant = useCallback(() => {
         setVariant((currentVariant) => currentVariant === LOGIN_TYPE ? REGISTER_TYPE : LOGIN_TYPE);
@@ -30,14 +32,15 @@ const Auth = () => {
     const loginUserHandler = useCallback(async () => {
         try {
             await signIn(CREDENTIALS, {
-                email:userEmail,
-                password:userPassword,
+                email: userEmail,
+                password: userPassword,
                 redirect: false,
                 callbackUrl: '/'
             });
-
+            toast.success("logged In");
             router.push(PROFILES);
-        } catch (error) {
+        } catch (error: any) {
+            toast.success(error?.message);
             console.log(error);
         }
     }, [userEmail, userPassword, router]);
@@ -45,14 +48,18 @@ const Auth = () => {
     const registerUserHandler = useCallback(async () => {
         try {
             const url = API + REGISTER
-            await axios.post(url, {
+            const res = await axios.post(url, {
                 userEmail,
                 userName,
                 userPassword,
             });
-
-            loginUserHandler();
-        } catch (error) {
+            console.log({ res });
+            if (res?.data?.ok) {
+                loginUserHandler();
+                toast.success(res?.data?.message);
+            }
+        } catch (error: any) {
+            toast.error(error?.response?.data?.message);
             console.log(error);
         }
     }, [userEmail, userName, userPassword, loginUserHandler]);
@@ -64,7 +71,7 @@ const Auth = () => {
                     <Image src={Logo?.src} className='h-12' width={200} height={200} alt='netflix-logo' />
                 </nav>
                 <div className="flex justify-center">
-                    <div className="bg-black bg-opacity-70 px-16 py-16 self-center mt-2 lg:w-2/5 lg:max-w-md rounded-md w-full">
+                    <form className="bg-black bg-opacity-70 px-16 py-16 self-center mt-2 lg:w-2/5 lg:max-w-md rounded-md w-full">
                         <Heading label={variant === LOGIN_TYPE ? 'Sign in' : 'Register'} />
                         <div className="flex flex-col gap-4">
                             {variant === REGISTER_TYPE && (
@@ -91,14 +98,14 @@ const Auth = () => {
                                 onChange={(e: any) => setUserPassword(e.target.value)}
                             />
                         </div>
-                        <Button label={variant === 'login' ? 'Login' : 'Sign up'} onClick={variant === 'login' ? loginUserHandler : registerUserHandler} />
+                        <Button label={variant === 'login' ? 'Login' : 'Sign up'} disabled={isButtonDisabled} onClick={variant === 'login' ? loginUserHandler : registerUserHandler} />
                         <p className="text-neutral-500 mt-12">
                             {variant === 'login' ? 'First time using Netflix?' : 'Already have an account?'}
                             <span onClick={toggleVariant} className="text-white ml-1 hover:underline cursor-pointer">
                                 {variant === 'login' ? 'Create an account' : 'Login'}
                             </span>
                         </p>
-                    </div>
+                    </form>
                 </div>
 
             </div>

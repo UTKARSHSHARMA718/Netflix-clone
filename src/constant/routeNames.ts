@@ -5,5 +5,5 @@ export const SERIES = "/series";
 export const FILMS = "/films";
 export const NEW_AND_POPULAR = "/new-popular";
 export const MY_LIST = "/myList";
-export const BROWSE_BY_LANGUAGES = "/languages";
+export const BROWSE_BY_FILTER = "/filters";
 export const DETAILS = "/details";

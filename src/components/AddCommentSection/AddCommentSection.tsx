@@ -7,7 +7,7 @@ interface AddCommentSectionProps {
   setCommetsData: (v:any) => void;
 }
 
-const AddCommentSection: React.FC<AddCommentSectionProps> = ({ setCommetsData }) => {
+const AddCommentSection: React.FC<AddCommentSectionProps> = ({ setCommetsData,commentsData }) => {
   const [textData, setTextData] = useState("");
 
   const addCommentHandler = () => {
@@ -17,12 +17,13 @@ const AddCommentSection: React.FC<AddCommentSectionProps> = ({ setCommetsData })
       text: textData,
       replies: [],
     };
-    setCommetsData((prev:any) => {
-      return {
-        ...prev,
-        comments: [...prev?.comments, newComment],
-      };
-    });
+    // setCommetsData((prev:any) => {
+    //   return {
+    //     ...prev,
+    //     comments: [...prev?.comments, newComment],
+    //   };
+    // });
+    setCommetsData([...commentsData?.comments, newComment])
   };
 
   return (
