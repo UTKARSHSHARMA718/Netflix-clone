@@ -1,3 +1,4 @@
+
 import AppContent from "@/containers/AppContent/AppContent";
 import Billboard from "@/components/Billboard/Billboard";
 import MovieList from "@/components/MovieList/MovieList";
@@ -10,10 +11,10 @@ import { getCurrentUser } from "@/actions/getCurrentUser";
 export default async function Home() {
   const allMoviesAndSeries = await getMoviesAndSeries({});
   const myListData = await getFavoriteMoviesSeries();
-  const currentUser = await getCurrentUser();
 
   const allMovies = allMoviesAndSeries?.filter(item => item?.type === MOVIE_TYPE);
   const allSeries = allMoviesAndSeries?.filter(item => item?.type === SERIES_TYPE);
+  const currentUser = await getCurrentUser();
 
   return (
     <>

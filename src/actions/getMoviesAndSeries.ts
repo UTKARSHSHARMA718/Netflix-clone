@@ -3,7 +3,8 @@
 import prisma from "@/libs/prisma-db/prisma-db";
 
 interface IMoviesAndSeries {
-  releasedAfter?: Date;
+  releasedAfter?: string;
+  releasedOn?: string;
   directedBy?: string;
   cast?: string;
   title?: string;
@@ -27,12 +28,20 @@ export const getMoviesAndSeries = async (props?: IMoviesAndSeries) => {
     const type = props?.type;
     const genre = props?.genre;
     const resolution = props?.resolution;
+    const releasedOn = props?.releasedOn;
 
     let query: any = {};
 
     if (releasedAfter) {
       query.releasedOn = {
-        gte: releasedAfter,
+        gte: new Date(`${releasedAfter}-01-01T00:00:00.000Z`),
+      };
+    }
+
+    if (releasedOn) {
+      query.releasedOn = {
+        gte: new Date(`${releasedOn}-01-01T00:00:00.000Z`),
+        lte: new Date(`${releasedOn}-30-12T00:00:00.000Z`),
       };
     }
 
@@ -74,7 +83,7 @@ export const getMoviesAndSeries = async (props?: IMoviesAndSeries) => {
       query.type = {
         contains: type,
         mode: "insensitive",
-      };;
+      };
     }
 
     if (genre) {

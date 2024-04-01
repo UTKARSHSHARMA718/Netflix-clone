@@ -10,7 +10,6 @@ import MobileMenu from '@/components/MobileMenu/MobileMenu';
 import NavbarItem from '@/components/NavbarItem/NavbarItem';
 import { MOBILE_MENU_OPTIONS, DISTANCE_TO_MAKE_NAVBAR_DARK } from '@/constant/const';
 import { compareStrings } from '@/libs/utils/utils';
-import { AUTH } from '@/constant/routeNames';
 import { SafeUser } from '@/Types/SafeTypes';
 import styles from './Navbar.module.css'
 
@@ -49,12 +48,6 @@ const Navbar:React.FC<INavbar> = ({currentUser}) => {
     const toggleMobileMenu = useCallback(() => {
         setShowMobileMenu((current) => !current);
     }, []);
-
-    if(!currentUser){
-        // TODO: make this below work for route ristriction
-        // router?.push(AUTH);
-        return;
-    }
 
     return (
         <nav className={`w-full fixed z-40 ${styles.navContainer}`}>

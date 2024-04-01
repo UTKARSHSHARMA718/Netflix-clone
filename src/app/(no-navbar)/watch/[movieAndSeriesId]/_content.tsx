@@ -27,7 +27,7 @@ const WatchContent: React.FC<WatchContentProps> = ({ movieAndSeriesData, current
                 <p className="text-white text-1xl md:text-3xl font-bold">
                     <span className="font-light">Watching:</span> {movieAndSeriesData?.title}
                 </p>
-            </nav>
+            </nav>video
             <video className="h-full w-full" autoPlay controls src={movieAndSeriesData?.videoUrl}></video>
         </div>
     )

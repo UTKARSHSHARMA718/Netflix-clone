@@ -3,13 +3,14 @@
   gap: 24px;
   width: 100%;
   margin-left: 12px;
+  padding: 24px;
 }
 
-.logo{
-    width: 12vw;
-    max-width: 180px;
-    min-width: 80px;
-    margin-right: 3rem;
+.logo {
+  width: 12vw;
+  max-width: 180px;
+  min-width: 80px;
+  margin-right: 3rem;
 }
 
 .navContainer {
@@ -25,7 +26,7 @@
   .mobileOptions {
     display: flex;
   }
-  .navlinksContainer{
+  .navlinksContainer {
     display: none;
   }
 }
