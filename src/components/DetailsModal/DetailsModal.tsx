@@ -1,12 +1,15 @@
 "use client"
 
 import React, { useCallback, useContext, useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { XMarkIcon } from '@heroicons/react/24/outline';
 
+import Button from '../Button/Button';
 import FavoriteButton from '@/components/FavoriteBtn/FavoriteBtn';
 import PlayButton from '@/components/PlayButton/PlayButton';
-import { GlobalContext } from '@/context/GlobalContext';
 import useGetMovieOrSeries from '@/hooks/useGetMovieOrSeries';
+import { GlobalContext } from '@/context/GlobalContext';
+import { DETAILS } from '@/constant/routeNames';
 
 interface DetailsModal {
     visible?: boolean;
@@ -15,22 +18,17 @@ interface DetailsModal {
 
 const DetailsModal: React.FC<DetailsModal> = ({ visible, onClose }) => {
     const [isVisible, setIsVisible] = useState<boolean>(!!visible);
-
+    const router = useRouter();
     // @ts-ignore
-    const { globalState } = useContext(GlobalContext);
-    console.log({ globalState });
-    const moviesOrSeriesId = globalState?.movieOrSeriesId;
+    const { globalState, setGlobalState } = useContext(GlobalContext);
     const { getMoviesOrSeriesData, data } = useGetMovieOrSeries();
-    //   const { movieId } = useInfoModalStore();
-    //   const { data = {} } = useMovie(movieId);
+    const moviesOrSeriesId = globalState?.movieOrSeriesId;
 
     useEffect(() => {
         setIsVisible(!!visible);
-        console.log("inside useEffect ",{moviesOrSeriesId, visible})
+        console.log("inside useEffect ", { moviesOrSeriesId, visible })
         getMoviesOrSeriesData(moviesOrSeriesId);
     }, [visible]);
-
-    console.log("data....", {data})
 
     const handleClose = useCallback(() => {
         setIsVisible(false);
@@ -38,6 +36,17 @@ const DetailsModal: React.FC<DetailsModal> = ({ visible, onClose }) => {
             onClose();
         }, 300);
     }, [onClose]);
+
+    const visitHandler = () => {
+        setGlobalState((prev: any) => {
+            return {
+                ...prev,
+                isInfoModalOpen: false,
+                movieOrSeriesId: null,
+            }
+        });
+        router?.push(`${DETAILS}/${data?.id}`)
+    }
 
     if (!visible) {
         return null;
@@ -59,6 +68,7 @@ const DetailsModal: React.FC<DetailsModal> = ({ visible, onClose }) => {
                             </p>
                             <div className="flex flex-row gap-4 items-center">
                                 <PlayButton movieOrSeriesId={data?.id || ""} />
+                                <Button label='Visit' onClick={visitHandler} isMarginTopRequired={false} />
                                 <FavoriteButton movieOrSeriesId={data?.id || ""} />
                             </div>
                         </div>

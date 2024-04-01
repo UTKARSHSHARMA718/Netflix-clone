@@ -32,3 +32,10 @@ export const MOBILE_MENU_OPTIONS = [
 
 export const MOVIE_TYPE = "movie";
 export const SERIES_TYPE = "series";
+export const LANGUAGES = {
+  hi: "hindi",
+  en: "english",
+  es: "spanish",
+  zh: "madarin",
+  fr: "french",
+};

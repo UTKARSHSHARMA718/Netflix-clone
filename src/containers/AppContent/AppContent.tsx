@@ -8,7 +8,6 @@ import { GlobalContext } from '@/context/GlobalContext';
 const AppContent = () => {
     // @ts-ignore
     const { globalState, setGlobalState } = useContext(GlobalContext);
-    console.log("insiiiiiiiiiiiiiiiiiiiii,....",{globalState})
 
     return (
         <>
