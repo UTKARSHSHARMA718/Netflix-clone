@@ -14,6 +14,7 @@
 
 ![comment section 1](https://github.com/UTKARSHSHARMA718/Netflix-clone/assets/86897568/ddc18871-5549-4e01-b6a3-fd2b664792e4)
 
+![Signup](https://github.com/UTKARSHSHARMA718/Netflix-clone/assets/86897568/c670dc35-5363-4892-97dc-27ccd13d33ca)
 
 
 This is a repository for a FullStack Netflix Clone built using React, NextJS, TailwindCSS & Prisma.
