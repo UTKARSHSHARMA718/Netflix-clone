@@ -13,11 +13,11 @@ This is a repository for a FullStack Netflix Clone tutorial using React, NextJS,
 
 [VIDEO TUTORIAL](https://www.youtube.com/watch?v=mqUN4N2q4qY)
 
-Stack/Technologies:
+### Stack/Technologies:
 
 - React JS, Typescript, Next JS, MongoDB, NextAuth, Prisma
 
-Features:
+### Features:
 
 - Email and Password authentication with NextAuth
 - Full responsiveness on all pages
