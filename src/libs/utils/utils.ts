@@ -32,3 +32,17 @@ export const getHumanReadableDate = (date: Date) => {
 export const getRandomId = () => {
   return Math.ceil(Math.random() * 10000);
 };
+
+export const getDuration = (value: number) => {
+  const base = Math.floor(value / 60);
+  const extra = value - base * 60;
+  return `${base} hrs ${extra} mins`;
+};
+
+export const showLimitedText = (text: string, limit: number) => {
+  const modifiedText = text?.slice(0, limit);
+  if (limit < text?.length) {
+    return `${modifiedText}...`;
+  }
+  return modifiedText;
+};

@@ -14,11 +14,11 @@ import { MOBILE_MENU_OPTIONS, DISTANCE_TO_MAKE_NAVBAR_DARK } from '@/constant/co
 import { SafeUser } from '@/Types/SafeTypes';
 import styles from './Navbar.module.css'
 
-interface INavbar{
-    currentUser: SafeUser|null;
+interface INavbar {
+    currentUser: SafeUser | null;
 }
 
-const Navbar:React.FC<INavbar> = ({currentUser}) => {
+const Navbar: React.FC<INavbar> = ({ currentUser }) => {
     const router = useRouter();
 
     const [showAccountMenu, setShowAccountMenu] = useState(false);
@@ -51,12 +51,12 @@ const Navbar:React.FC<INavbar> = ({currentUser}) => {
     }, []);
 
     return (
-        <nav className={`w-full fixed z-40 ${styles.navContainer}`}>
-            <div className={`px-4 md:px-16 py-6 flex flex-row items-center transition duration-500 ${showBackground ? 'bg-zinc-900 bg-opacity-90' : ''}`}>
-                <Image src="/images/logo.png" width={200} height={200} className={`h-4 lg:h-7 ${styles.logo}`} alt="Logo" onClick={()=>router?.push(HOME)} />
+        <nav className={`w-full fixed z-60 ${styles.navContainer}`}>
+            <div className={`p-4 md:px-16 py-6 flex flex-row items-center transition duration-500 ${showBackground ? 'bg-zinc-900 bg-opacity-90' : ''}`}>
+                <Image src="/images/logo.png" width={200} height={200} className={`h-4 lg:h-7 ${styles.logo} cursor-pointer`} alt="Logo" onClick={() => router?.push(HOME)} />
                 <div className={`flex-row ml-8 gap-7 hidden md:flex ${styles.navlinksContainer}`}>
                     {MOBILE_MENU_OPTIONS?.map(items => {
-                        return <NavbarItem label={items?.label} key={items?.label} active={compareStrings(pathName, items?.routeName)} onClick={()=>router?.push(items?.routeName)} />
+                        return <NavbarItem label={items?.label} key={items?.label} active={compareStrings(pathName, items?.routeName)} onClick={() => router?.push(items?.routeName)} />
                     })}
                 </div>
                 <div onClick={toggleMobileMenu} className={`flex flex-row items-center gap-2 ml-8 cursor-pointer relative ${styles.mobileOptions}`}>
@@ -66,17 +66,17 @@ const Navbar:React.FC<INavbar> = ({currentUser}) => {
                 </div>
                 <div className="flex flex-row ml-auto gap-4 items-center">
                     <div className="text-gray-200 hover:text-gray-300 cursor-pointer transition">
-                        <MagnifyingGlassIcon className="w-6" />
+                        <MagnifyingGlassIcon className={`${styles.hideIcons} w-6 hidden md:block`} />
                     </div>
                     <div className="text-gray-200 hover:text-gray-300 cursor-pointer transition">
-                        <BellIcon className="w-6" />
+                        <BellIcon className={`${styles.hideIcons} w-6 hidden md:block`} />
                     </div>
                     <div onClick={toggleAccountMenu} className="flex flex-row items-center gap-2 cursor-pointer relative">
                         <div className="w-6 h-6 lg:w-10 lg:h-10 rounded-md overflow-hidden">
                             <Image src="/images/default-blue.png" width={50} height={50} alt="user-image" />
                         </div>
                         <ChevronDownIcon className={`w-4 text-white fill-white transition ${showAccountMenu ? 'rotate-180' : 'rotate-0'}`} />
-                        <AccountMenu visible={showAccountMenu} />
+                        <AccountMenu visible={showAccountMenu} {...{currentUser}}/>
                     </div>
                 </div>
             </div>

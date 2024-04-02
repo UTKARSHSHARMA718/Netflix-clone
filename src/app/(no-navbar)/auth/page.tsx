@@ -1,7 +1,6 @@
 "use client"
 
-import React, { useCallback, useState } from 'react';
-import toast from 'react-hot-toast';
+import React, { useCallback, useEffect, useState } from 'react';
 import Image from 'next/image';
 import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
@@ -10,6 +9,7 @@ import axios from "axios"
 import Button from '@/components/Button/Button';
 import Heading from '@/components/Heading/Heading';
 import Input from '@/components/Input/Input';
+import { toast } from '@/containers/ToastProvider/ToastProvider';
 
 import Logo from "@/../../public/images/logo.png"
 import { CREDENTIALS, LOGIN_TYPE, REGISTER_TYPE } from '@/constant/const';
@@ -29,21 +29,25 @@ const Auth = () => {
         setVariant((currentVariant) => currentVariant === LOGIN_TYPE ? REGISTER_TYPE : LOGIN_TYPE);
     }, []);
 
-    const loginUserHandler = useCallback(async () => {
+    const loginUserHandler = useCallback(async (e?: React.FormEvent<HTMLFormElement>) => {
+        e?.preventDefault();
         try {
-            await signIn(CREDENTIALS, {
+            const res = await signIn(CREDENTIALS, {
                 email: userEmail,
                 password: userPassword,
                 redirect: false,
                 callbackUrl: '/'
             });
-            toast.success("logged In");
-            router.push(PROFILES);
+            if (res?.ok) {
+                toast.success("logged In");
+                router.push(PROFILES);
+            }
+            toast.error("Invalid credentials!");
         } catch (error: any) {
-            toast.success(error?.message);
+            toast.error(error?.message);
             console.log(error);
         }
-    }, [userEmail, userPassword, router]);
+    }, [userEmail, userPassword, router, toast]);
 
     const registerUserHandler = useCallback(async () => {
         try {
@@ -55,8 +59,8 @@ const Auth = () => {
             });
             console.log({ res });
             if (res?.data?.ok) {
-                loginUserHandler();
                 toast.success(res?.data?.message);
+                loginUserHandler();
             }
         } catch (error: any) {
             toast.error(error?.response?.data?.message);
@@ -98,7 +102,11 @@ const Auth = () => {
                                 onChange={(e: any) => setUserPassword(e.target.value)}
                             />
                         </div>
-                        <Button label={variant === 'login' ? 'Login' : 'Sign up'} disabled={isButtonDisabled} onClick={variant === 'login' ? loginUserHandler : registerUserHandler} />
+                        <Button
+                            label={variant === 'login' ? 'Login' : 'Sign up'}
+                            disabled={isButtonDisabled}
+                            onClick={variant === 'login' ? loginUserHandler : registerUserHandler}
+                        />
                         <p className="text-neutral-500 mt-12">
                             {variant === 'login' ? 'First time using Netflix?' : 'Already have an account?'}
                             <span onClick={toggleVariant} className="text-white ml-1 hover:underline cursor-pointer">

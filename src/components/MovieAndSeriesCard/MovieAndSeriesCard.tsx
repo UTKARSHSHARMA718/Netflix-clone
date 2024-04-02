@@ -21,7 +21,7 @@ const MovieAndSeriesCard: React.FC<MovieCardProps> = ({ data }) => {
     const redirectToWatch = useCallback(() => router.push(`/watch/${data.id}`), [router, data.id]);
 
     return (
-        <div className="group bg-zinc-900 col-span relative h-[12vw]">
+        <div className="group bg-zinc-900 col-span relative h-[12vw] min-h-[200px] min-w-[250px] z-20">
             <img onClick={redirectToWatch} src={data.thumbnailUrl} alt="Movie" draggable={false} className="
                 cursor-pointer
                 object-cover
@@ -34,6 +34,7 @@ const MovieAndSeriesCard: React.FC<MovieCardProps> = ({ data }) => {
                 delay-300
                 w-full
                 h-[12vw]
+                min-h-[200px]
             " />
             <div className="
                 opacity-0
@@ -41,7 +42,7 @@ const MovieAndSeriesCard: React.FC<MovieCardProps> = ({ data }) => {
                 top-0
                 transition
                 duration-200
-                z-10
+                z-50
                 invisible
                 sm:visible
                 delay-300

@@ -15,9 +15,7 @@ const CommentsSection: React.FC<movieOrSeriesId> = ({ movieOrSeriesId }) => {
     // @ts-ignore
     const { globalState, setGlobalState } = useContext(GlobalContext);
     const commentsData = globalState?.commentsData?.filter((item: any) => item?.listingId === movieOrSeriesId)?.[0] || { listingId: movieOrSeriesId, comments: [] };
-    // const [commentsData, setCommetsData] = useState(
-    //     DUMMY_COMMENTS_DATA?.filter((item) => item?.listingId === movieOrSeriesId)?.[0]
-    // );
+
     const setCommetsData = (updatedCommentsData: any) => {
         const comments = globalState?.commentsData?.filter((item: any) => item?.listingId !== movieOrSeriesId)
         console.log({ commentsData, comments, updatedCommentsData });
@@ -28,12 +26,11 @@ const CommentsSection: React.FC<movieOrSeriesId> = ({ movieOrSeriesId }) => {
             }
         })
     }
-    console.log({ commentsData });
 
     return (
         <div className='flex flex-col gap-4'>
             <AddCommentSection {...{ setCommetsData, commentsData }} />
-            <div className='p-3 flex flex-col gap-3'>
+            <div className='py-3 flex flex-col gap-3'>
                 {commentsData?.comments?.filter((v:any) => v)?.map((comment:any) => {
                     return (
                         <Comment

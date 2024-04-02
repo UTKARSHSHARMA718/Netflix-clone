@@ -50,10 +50,6 @@ const Comment: React.FC<CommentsProps> = ({
         const updatedValue = allCommentsData?.comments?.map((item: any) => {
             return addNewComment(item, commentId, replyText);
         });
-        // setCommetsData({
-        //     ...allCommentsData,
-        //     comments: updatedValue,
-        // });
         setCommetsData(updatedValue)
         setReplyText("");
         setIsShowAllReplies(true)
@@ -63,10 +59,6 @@ const Comment: React.FC<CommentsProps> = ({
         const updatedValue = allCommentsData?.comments?.map((item: any) => {
             return likeOrUnlikeComment(item, commentId);
         });
-        // setCommetsData({
-        //     ...allCommentsData,
-        //     comments: updatedValue,
-        // });
         setCommetsData(updatedValue)
     }
 
@@ -74,22 +66,17 @@ const Comment: React.FC<CommentsProps> = ({
         const updatedValue = allCommentsData?.comments?.map((item: any) => {
             return deleteComment(item, commentId);
         });
-        // setCommetsData({
-        //     ...allCommentsData,
-        //     comments: updatedValue,
-        // });
         setCommetsData(updatedValue)
     }
     console.log({ allCommentsData })
 
     return (
-        <div className="p-2 flex flex-col gap-2 border-[1px] border-red-400 rounded-xl w-full">
+        <div className="p-2 flex flex-col gap-2 border-[1px] border-red-400 rounded-xl w-full bg-slate-800">
             <div className="flex flex-col gap-3 w-full">
                 <div>
                     <p className="text-white font-medium text-md">{text}</p>
                 </div>
                 <div className="flex gap-3">
-
                     <p className="cursor-pointer" onClick={toggleLike}>{isLiked ? <>❤️</> : <>🤍</>}</p>
                     {!isReplySectionOpen && <button className="text-xs text-slate-300 font-medium" onClick={toggleReply}>Reply</button>}
                     {!isReplySectionOpen && <button className="text-xs text-slate-300 font-medium" onClick={deleteCommentOrReply}>Delete</button>}

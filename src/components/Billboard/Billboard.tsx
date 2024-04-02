@@ -6,6 +6,7 @@ import { InformationCircleIcon } from '@heroicons/react/24/outline';
 import PlayButton from '@/components/PlayButton/PlayButton';
 import { Movies } from '@prisma/client';
 import { GlobalContext } from '@/context/GlobalContext';
+import { getRandomId, showLimitedText } from '@/libs/utils/utils';
 
 interface BillboardProps {
     allMoviesAndSeries: Movies[] | null
@@ -14,16 +15,15 @@ interface BillboardProps {
 const Billboard: React.FC<BillboardProps> = ({ allMoviesAndSeries }) => {
     //@ts-ignore
     const { globalState, setGlobalState } = useContext(GlobalContext);
-    console.log({ globalState });
 
     if (!allMoviesAndSeries) {
         return <p>Something went wrong!</p>
     }
 
-    const data = allMoviesAndSeries[0];
+    const moviesSize = allMoviesAndSeries?.length;
+    const data = allMoviesAndSeries[Math.floor(getRandomId() % moviesSize)];
 
     const handleOpenModal = useCallback(() => {
-        // openModal(data?.id);
         setGlobalState((prev: any) => {
             return {
                 ...prev,
@@ -43,7 +43,7 @@ const Billboard: React.FC<BillboardProps> = ({ allMoviesAndSeries }) => {
                     {data?.title}
                 </p>
                 <p className="text-white text-[8px] md:text-lg mt-3 md:mt-8 w-[90%] md:w-[80%] lg:w-[50%] drop-shadow-xl">
-                    {data?.description}
+                    {showLimitedText(data?.description, 120)}
                 </p>
                 <div className="flex flex-row items-center mt-3 md:mt-4 gap-3">
                     <PlayButton movieOrSeriesId={data?.id} />

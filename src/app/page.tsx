@@ -1,8 +1,8 @@
 
 import AppContent from "@/containers/AppContent/AppContent";
 import Billboard from "@/components/Billboard/Billboard";
-import MovieList from "@/components/MovieList/MovieList";
 import Navbar from "@/containers/Navbar/Navbar";
+import Slider from "@/components/Slider/Slider";
 import getFavoriteMoviesSeries from "@/actions/getFavoriteMoviesSeries";
 import { getMoviesAndSeries } from '@/actions/getMoviesAndSeries';
 import { MOVIE_TYPE, SERIES_TYPE } from "@/constant/const";
@@ -21,10 +21,10 @@ export default async function Home() {
       <AppContent />
       <Navbar {...{ currentUser }} />
       <Billboard {...{ allMoviesAndSeries }} />
-      <div className="pb-40">
-        <MovieList title="New Trending movies" data={allMovies} />
-        <MovieList title="New Trending series" data={allSeries} />
-        <MovieList title="My List Items" data={myListData} />
+      <div className="pb-40 flex flex-col gap-8 pt-8">
+        <Slider title="New Trending movies" data={allMovies} />
+        <Slider title="New Trending series" data={allSeries} />
+        <Slider title="My List Items" data={myListData} />
       </div>
     </>
   )
