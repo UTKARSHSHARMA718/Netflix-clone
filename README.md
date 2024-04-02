@@ -1,4 +1,4 @@
-# A Fullstack Netflix Clone build in NextJs
+# A Fullstack Netflix Clone built in NextJs
 
 ![home page 1](https://github.com/UTKARSHSHARMA718/Netflix-clone/assets/86897568/1a786214-03ff-4a62-a157-d656b6fc22a7)
 
