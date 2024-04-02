@@ -1,31 +1,43 @@
-# Building a Fullstack Netflix Clone with React, NextJS, TailwindCSS & Prisma
+# A Fullstack Netflix Clone build in NextJs
 
-![image](https://user-images.githubusercontent.com/23248726/220005380-ede4fb14-0b8d-4582-a063-3cc4beeccfb7.png)
+![home page 1](https://github.com/UTKARSHSHARMA718/Netflix-clone/assets/86897568/1a786214-03ff-4a62-a157-d656b6fc22a7)
+
+![home page 2](https://github.com/UTKARSHSHARMA718/Netflix-clone/assets/86897568/34065aee-44a8-454f-87a3-64d93a85f487)
+
+![home page 3](https://github.com/UTKARSHSHARMA718/Netflix-clone/assets/86897568/81022bb2-2d18-477b-a0a9-377c3ff9883f)
+
+![video page 1](https://github.com/UTKARSHSHARMA718/Netflix-clone/assets/86897568/505404e7-dd54-4ec2-84c3-f6d6731074fc)
+
 
 This is a repository for a FullStack Netflix Clone tutorial using React, NextJS, TailwindCSS & Prisma.
 
 [VIDEO TUTORIAL](https://www.youtube.com/watch?v=mqUN4N2q4qY)
 
+Stack/Technologies:
+
+- React JS, Typescript, Next JS, MongoDB, NextAuth, Prisma
+
 Features:
 
-- Environment, Typescript, NextJS Setup
-- MongoDB & Prisma connect, Database creation
-- Authentication with NextAuth, Google & Github Login
+- Email and Password authentication with NextAuth
 - Full responsiveness on all pages
 - Cookie based authentication
 - API and Controllers creation
-- Detail-oriented effects and animations using TailwindCSS
-- React SWR data fetching
-- Zustand state management
+- Detail-oriented effects and animations using Tailwind
+- Nextjs server actions for data fetching
+- Context API for global state management
+- Detailed Movie page
+- Dedicated comment section
+- Search By Filter Page
 
 ### Prerequisites
 
-**Node version 14.x**
+**Node version 16.x**
 
 ### Cloning the repository
 
 ```shell
-git clone https://github.com/AntonioErdeljac/next-netflix-tutorial.git
+https://github.com/UTKARSHSHARMA718/Netflix-clone.git
 ```
 
 ### Install packages
@@ -39,10 +51,6 @@ npm i
 
 ```js
 DATABASE_URL=
-GOOGLE_CLIENT_ID=
-GOOGLE_CLIENT_SECRET=
-GITHUB_ID=
-GITHUB_SECRET=
 NEXTAUTH_JWT_SECRET=
 NEXTAUTH_SECRET=
 ```
