@@ -29,6 +29,7 @@ This is a repository for a FullStack Netflix Clone built using React, NextJS, Ta
 - Detailed Movie page
 - Dedicated comment section
 - Search By Filter Page
+- Mark movie/series as favourite option
 
 ### Prerequisites
 
