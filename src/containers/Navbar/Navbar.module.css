@@ -15,11 +15,17 @@
 
 .navContainer {
   position: fixed;
-  z-index: 20;
+  z-index: 55;
 }
 
 .mobileOptions {
   display: none;
+}
+
+@media (max-width: 767px) {
+  .hideIcons {
+    display: none;
+  }
 }
 
 @media (max-width: 1024px) {
@@ -28,5 +34,8 @@
   }
   .navlinksContainer {
     display: none;
+  }
+  .logo {
+    margin-right: 1rem;
   }
 }

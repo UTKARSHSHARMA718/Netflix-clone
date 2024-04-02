@@ -16,7 +16,7 @@ export const getCurrentUser: () => Promise<SafeUser | null> = async () => {
     if (!session || !session?.user?.email) {
       return null;
     }
-
+    
     const user = await prisma.user?.findUnique({
       where: {
         email: session.user.email,

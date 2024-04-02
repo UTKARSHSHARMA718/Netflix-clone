@@ -1,4 +1,5 @@
 import React from 'react'
+import ToastProvider from '@/containers/ToastProvider/ToastProvider';
 
 import AppContent from '@/containers/AppContent/AppContent'
 import Navbar from '@/containers/Navbar/Navbar'
@@ -9,7 +10,8 @@ const ProtectedLayout = async ({ children }: { children: React.ReactNode }) => {
 
     return (
         <>
-            <AppContent {...{currentUser}}/>
+            <ToastProvider />
+            <AppContent />
             <Navbar {...{ currentUser }} />
             {children}
         </>

@@ -3,7 +3,8 @@
 import prisma from "@/libs/prisma-db/prisma-db";
 
 interface IMoviesAndSeries {
-  releasedAfter?: string;
+  releasedAfter?: number;
+  releasedBefore?: number;
   releasedOn?: string;
   directedBy?: string;
   cast?: string;
@@ -19,6 +20,7 @@ interface IMoviesAndSeries {
 export const getMoviesAndSeries = async (props?: IMoviesAndSeries) => {
   try {
     const releasedAfter = props?.releasedAfter;
+    const releasedBefore = props?.releasedBefore;
     const directedBy = props?.directedBy;
     const cast = props?.cast;
     const title = props?.title;
@@ -32,27 +34,25 @@ export const getMoviesAndSeries = async (props?: IMoviesAndSeries) => {
 
     let query: any = {};
 
-    if (releasedAfter) {
+    if (releasedAfter && releasedBefore) {
       query.releasedOn = {
         gte: new Date(`${releasedAfter}-01-01T00:00:00.000Z`),
+        lte: new Date(`${releasedBefore}-12-30T00:00:00.000Z`),
       };
     }
 
     if (releasedOn) {
       query.releasedOn = {
         gte: new Date(`${releasedOn}-01-01T00:00:00.000Z`),
-        lte: new Date(`${releasedOn}-30-12T00:00:00.000Z`),
+        lte: new Date(`${releasedOn}-12-30T00:00:00.000Z`),
       };
     }
 
-    // if (directedBy) {
-    //   query.directedBy = {
-    //     some: {
-    //       contains: directedBy,
-    //       mode: "insensitive",
-    //     },
-    //   };
-    // }
+    if (directedBy) {
+      query.directedBy = {
+        has: directedBy,
+      };
+    }
 
     if (cast) {
       query.cast = {
@@ -68,8 +68,8 @@ export const getMoviesAndSeries = async (props?: IMoviesAndSeries) => {
     }
 
     if (lang) {
-      query.languages = {
-        some: lang,
+      query.langauges = {
+        has: lang,
       };
     }
 
@@ -95,7 +95,7 @@ export const getMoviesAndSeries = async (props?: IMoviesAndSeries) => {
 
     if (resolution) {
       query.resolution = {
-        some: resolution,
+        has: resolution,
       };
     }
 
@@ -104,6 +104,8 @@ export const getMoviesAndSeries = async (props?: IMoviesAndSeries) => {
         gte: rating,
       };
     }
+
+    console.log({ query });
 
     const res = await prisma.movies.findMany({
       where: query,
@@ -114,6 +116,7 @@ export const getMoviesAndSeries = async (props?: IMoviesAndSeries) => {
       ],
     });
 
+    console.log({ res });
     return res;
   } catch (error: any) {
     console.log("Error while getting movies and series: " + error);

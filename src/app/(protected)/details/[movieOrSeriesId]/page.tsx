@@ -2,6 +2,7 @@ import React from 'react'
 
 import Info from '@/components/Info/Info';
 import MovieList from '@/components/MovieList/MovieList';
+import StarRating from '@/components/StarRating/StarRating';
 import getSingleMovieSeries from '@/actions/getSingleMovieSeries';
 import { getMoviesAndSeries } from '@/actions/getMoviesAndSeries';
 import { getCommaSepratedString, getFullLanguageName, getHumanReadableDate } from '@/libs/utils/utils';
@@ -14,7 +15,8 @@ interface DetailsProps {
 const Details: React.FC<DetailsProps> = async ({ params }) => {
     const { movieOrSeriesId } = params;
     const data = await getSingleMovieSeries({ movieOrSeriesId });
-    const similarShowsData = await getMoviesAndSeries({ genre: data?.genre })
+    let similarShowsData = await getMoviesAndSeries({ genre: data?.genre })
+    similarShowsData = similarShowsData?.filter(item => item?.id !== movieOrSeriesId) || [];
     console.log({ data });
 
     const infoArray = [
@@ -35,13 +37,14 @@ const Details: React.FC<DetailsProps> = async ({ params }) => {
                 <video src={data?.videoUrl} className='rounded-xl h-full w-full' autoPlay controls />
                 <div className='gap-4 py-5 px-4 grid grid-cols-1 md:grid-cols-2'>
                     {infoArray?.map(info => <Info title={info?.title} value={info?.value!} />)}
+                    <StarRating rating={data?.rating!} />
                 </div>
                 <div className='py-5 px-4'>
                     <Info title="Description" value={data?.description!} />
                 </div>
             </div>
-            <MovieList title='Similar Movies and Shows' data={similarShowsData} />
-            <CommentsSection movieOrSeriesId={data?.id}/>
+            <MovieList title='Similar Movies and Shows' data={similarShowsData?.slice(0, 4)} customStyles='p-0 md:p-0' />
+            <CommentsSection movieOrSeriesId={data?.id} />
         </div>
     )
 }

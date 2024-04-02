@@ -1,31 +1,25 @@
 "use client"
 
-import React, { useEffect } from 'react';
+import React from 'react';
 import { signOut } from 'next-auth/react';
-import useGetCurrentUser from '@/hooks/useGetCuurentUser';
+import { SafeUser } from '@/Types/SafeTypes';
 
 interface AccountMenuProps {
     visible?: boolean;
+    currentUser: SafeUser | null;
 }
 
-const AccountMenu: React.FC<AccountMenuProps> = ({ visible }) => {
-    const { getCurrentUserData, userData } = useGetCurrentUser();
-
-    useEffect(() => {
-        getCurrentUserData();
-    }, [])
-
-
+const AccountMenu: React.FC<AccountMenuProps> = ({ visible, currentUser }) => {
     if (!visible) {
         return null;
     }
-    
+
     return (
         <div className="bg-black w-56 absolute top-14 right-0 py-5 flex-col border-2 border-gray-800 flex">
             <div className="flex flex-col gap-3">
                 <div className="px-3 group/item flex flex-row gap-3 items-center w-full">
                     <img className="w-8 rounded-md" src="/images/default-blue.png" alt="" />
-                    <p className="text-white text-sm group-hover/item:underline">{userData?.name}</p>
+                    <p className="text-white text-sm group-hover/item:underline">{currentUser?.name}</p>
                 </div>
             </div>
             <hr className="bg-gray-600 border-0 h-px my-4" />

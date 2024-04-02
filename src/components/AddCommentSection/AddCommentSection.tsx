@@ -4,10 +4,11 @@ import Button from "../Button/Button";
 import { getRandomId } from "@/libs/utils/utils";
 
 interface AddCommentSectionProps {
-  setCommetsData: (v:any) => void;
+  setCommetsData: (v: any) => void;
+  commentsData: any;
 }
 
-const AddCommentSection: React.FC<AddCommentSectionProps> = ({ setCommetsData }) => {
+const AddCommentSection: React.FC<AddCommentSectionProps> = ({ setCommetsData, commentsData }) => {
   const [textData, setTextData] = useState("");
 
   const addCommentHandler = () => {
@@ -17,12 +18,8 @@ const AddCommentSection: React.FC<AddCommentSectionProps> = ({ setCommetsData })
       text: textData,
       replies: [],
     };
-    setCommetsData((prev:any) => {
-      return {
-        ...prev,
-        comments: [...prev?.comments, newComment],
-      };
-    });
+    setCommetsData([...commentsData?.comments, newComment])
+    setTextData("");
   };
 
   return (
@@ -36,7 +33,7 @@ const AddCommentSection: React.FC<AddCommentSectionProps> = ({ setCommetsData })
         onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => setTextData(e?.target?.value)}
         className="w-full outline-none rounded-md p-1 min-h-[120px]"
       ></textarea>
-      <Button label="Add comment" isMarginTopRequired={false} onClick={addCommentHandler} disabled={!textData} customStyles="max-w-[180px] text-sm p-0"/>
+      <Button label="Add comment" isMarginTopRequired={false} onClick={addCommentHandler} disabled={!textData} customStyles="max-w-[180px] text-sm p-0" />
     </div>
   );
 };

@@ -1,8 +1,9 @@
 "use client";
 
+import { useState } from "react";
+
 import { SafeUser } from "@/Types/SafeTypes";
 import { getCurrentUser } from "@/actions/getCurrentUser";
-import { useState } from "react";
 
 const useGetCurrentUser = () => {
   const [userData, setUserData] = useState<SafeUser | null>(null);
