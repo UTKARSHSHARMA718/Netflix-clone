@@ -9,7 +9,7 @@
 ![video page 1](https://github.com/UTKARSHSHARMA718/Netflix-clone/assets/86897568/505404e7-dd54-4ec2-84c3-f6d6731074fc)
 
 
-This is a repository for a FullStack Netflix Clone tutorial using React, NextJS, TailwindCSS & Prisma.
+This is a repository for a FullStack Netflix Clone built using React, NextJS, TailwindCSS & Prisma.
 
 [VIDEO TUTORIAL](https://www.youtube.com/watch?v=mqUN4N2q4qY)
 
