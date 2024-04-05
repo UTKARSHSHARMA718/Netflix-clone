@@ -5,7 +5,7 @@ import { getMoviesAndSeries } from '@/actions/getMoviesAndSeries'
 
 const NewPopular = async () => {
     const allSeries = await getMoviesAndSeries({
-        releasedAfter: '2020'
+        releasedAfter: 2020
     })
 
     return (
