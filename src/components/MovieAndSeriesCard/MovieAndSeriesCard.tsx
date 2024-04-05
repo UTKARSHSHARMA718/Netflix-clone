@@ -15,7 +15,7 @@ interface MovieCardProps {
     data: MovieType;
     onMouseOver?: () => void;
     onMouseLeave?: () => void;
-    isFlowOverOnHover?: () => boolean;
+    isFlowOverOnHover?: boolean;
 }
 
 const MovieAndSeriesCard: React.FC<MovieCardProps> = ({ data, onMouseOver, onMouseLeave, isFlowOverOnHover = true }) => {

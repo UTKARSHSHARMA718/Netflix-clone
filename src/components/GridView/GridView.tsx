@@ -1,6 +1,6 @@
 import React from 'react'
 
-type GridViewProps = {
+interface GridViewProps {
     children: React.ReactElement | null;
 }
 
@@ -8,7 +8,6 @@ const GridView: React.FC<GridViewProps> = (props) => {
     const { children } = props;
 
     return (
-        // @ts-ignore
         <div className="
         p-6
         grid

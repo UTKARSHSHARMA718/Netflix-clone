@@ -13,11 +13,6 @@ interface AppContent {
 
 const AppContent: React.FC<AppContent> = ({ currentUser }) => {
     const router = useRouter();
-    // TODO: try to fix this
-    // if (!currentUser) {
-    //     router?.push(AUTH);
-    //     return;
-    // }
 
     const selectProfile = useCallback(() => {
         router.push(HOME);

@@ -27,7 +27,6 @@ const Slider: React.FC<SliderProps> = ({ data, title }) => {
         return null;
     }
 
-
     return (
         <div className='px-10 flex flex-col gap-6'>
             <p className='text-2xl text-white font-semibold'>{title}</p>
@@ -38,7 +37,6 @@ const Slider: React.FC<SliderProps> = ({ data, title }) => {
                 <div className={`flex gap-8 items-center ${isCardHovering ? 'overflow-x-hidden overflow-y-visible' : 'overflow-x-auto'} ${styles.container}`} ref={containerRef}>
                     {
                         data?.map(item => {
-                            // @ts-ignore
                             return <MovieAndSeriesCard isFlowOverOnHover={false} key={item.id} data={item} onMouseOver={() => setIsCardHovering(true)} onMouseLeave={() => setIsCardHovering(false)} />
                         })
                     }

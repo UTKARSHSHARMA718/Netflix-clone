@@ -3,7 +3,8 @@ import React from 'react'
 import EmptyPage from '@/components/EmptyPage/EmptyPage'
 import GridView from '@/components/GridView/GridView'
 import Header from '@/components/Headers/Heading'
-import MovieAndSeriesCard from '@/components/MovieAndSeriesCard/MovieAndSeriesCard'
+import MovieAndSeriesCard from '@/components/MovieAndSeriesCard/MovieAndSeriesCard';
+
 import { MovieType } from '@/Types/SafeTypes'
 import styles from './ViewAllContainer.module.css'
 

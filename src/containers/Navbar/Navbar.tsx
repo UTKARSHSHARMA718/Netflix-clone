@@ -1,13 +1,14 @@
 "use client"
 
 import React, { useCallback, useEffect, useState } from 'react';
-import { usePathname, useRouter } from 'next/navigation';
 import Image from 'next/image';
+import { usePathname, useRouter } from 'next/navigation';
 import { BellIcon, MagnifyingGlassIcon, ChevronDownIcon } from '@heroicons/react/24/outline';
 
 import AccountMenu from '@/components/AccountMenu/AccountMenu';
 import MobileMenu from '@/components/MobileMenu/MobileMenu';
 import NavbarItem from '@/components/NavbarItem/NavbarItem';
+
 import { compareStrings } from '@/libs/utils/utils';
 import { HOME } from '@/constant/routeNames';
 import { MOBILE_MENU_OPTIONS, DISTANCE_TO_MAKE_NAVBAR_DARK } from '@/constant/const';

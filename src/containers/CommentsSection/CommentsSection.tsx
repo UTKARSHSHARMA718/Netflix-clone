@@ -6,14 +6,15 @@ import AddCommentSection from '@/components/AddCommentSection/AddCommentSection'
 import Comment from '@/components/Comment/Comment';
 
 import { GlobalContext } from '@/context/GlobalContext';
+import { GlobalStateType } from '@/Types/ContextTypes';
 
 interface movieOrSeriesId {
     movieOrSeriesId: string | undefined;
 }
 
 const CommentsSection: React.FC<movieOrSeriesId> = ({ movieOrSeriesId }) => {
-    // @ts-ignore
-    const { globalState, setGlobalState } = useContext(GlobalContext);
+    const contextData: GlobalStateType = useContext(GlobalContext)!;
+    const { globalState, setGlobalState } = contextData;
     const commentsData = globalState?.commentsData?.filter((item: any) => item?.listingId === movieOrSeriesId)?.[0] || { listingId: movieOrSeriesId, comments: [] };
 
     const setCommetsData = (updatedCommentsData: any) => {
@@ -30,7 +31,7 @@ const CommentsSection: React.FC<movieOrSeriesId> = ({ movieOrSeriesId }) => {
         <div className='flex flex-col gap-4'>
             <AddCommentSection {...{ setCommetsData, commentsData }} />
             <div className='py-3 flex flex-col gap-3'>
-                {commentsData?.comments?.filter((v:any) => v)?.map((comment:any) => {
+                {commentsData?.comments?.filter((v: any) => v)?.map((comment: any) => {
                     return (
                         <Comment
                             text={comment?.text}

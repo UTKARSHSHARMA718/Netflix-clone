@@ -1,8 +1,9 @@
 import React from 'react';
+import { isEmpty } from 'lodash';
+
+import MovieAndSeriesCard from '@/components/MovieAndSeriesCard/MovieAndSeriesCard';
 
 import { MovieType } from '@/Types/SafeTypes';
-import MovieAndSeriesCard from '@/components/MovieAndSeriesCard/MovieAndSeriesCard';
-import { isEmpty } from 'lodash';
 
 interface MovieListProps {
     data: MovieType[] | null | undefined;

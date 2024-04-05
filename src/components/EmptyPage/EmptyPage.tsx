@@ -1,6 +1,6 @@
 import React from 'react'
 
-type EmptyPageProps={
+interface EmptyPageProps{
     title?: string;
     description?: string;
 }
