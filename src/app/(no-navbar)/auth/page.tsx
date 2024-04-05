@@ -41,15 +41,15 @@ const Auth = () => {
             if (res?.ok) {
                 toast.success("logged In");
                 router.push(PROFILES);
+                return;
             }
-            toast.error("Invalid credentials!");
         } catch (error: any) {
             toast.error(error?.message);
-            console.log(error);
         }
     }, [userEmail, userPassword, router, toast]);
 
-    const registerUserHandler = useCallback(async () => {
+    const registerUserHandler = useCallback(async (e?: React.FormEvent<HTMLFormElement>) => {
+        e?.preventDefault();
         try {
             const url = API + REGISTER
             const res = await axios.post(url, {
@@ -57,14 +57,12 @@ const Auth = () => {
                 userName,
                 userPassword,
             });
-            console.log({ res });
             if (res?.data?.ok) {
                 toast.success(res?.data?.message);
                 loginUserHandler();
             }
         } catch (error: any) {
             toast.error(error?.response?.data?.message);
-            console.log(error);
         }
     }, [userEmail, userName, userPassword, loginUserHandler]);
 

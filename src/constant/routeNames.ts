@@ -7,3 +7,4 @@ export const NEW_AND_POPULAR = "/new-popular";
 export const MY_LIST = "/myList";
 export const BROWSE_BY_FILTER = "/filters";
 export const DETAILS = "/details";
+export const WATCH = "/watch";

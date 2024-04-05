@@ -1,11 +1,11 @@
 "use client"
 
-import React, { useContext, useState } from 'react'
+import React, { useContext } from 'react'
 
 import AddCommentSection from '@/components/AddCommentSection/AddCommentSection';
 import Comment from '@/components/Comment/Comment';
+
 import { GlobalContext } from '@/context/GlobalContext';
-import { DUMMY_COMMENTS_DATA } from '@/constant/dummyCommentsData';
 
 interface movieOrSeriesId {
     movieOrSeriesId: string | undefined;
@@ -18,7 +18,6 @@ const CommentsSection: React.FC<movieOrSeriesId> = ({ movieOrSeriesId }) => {
 
     const setCommetsData = (updatedCommentsData: any) => {
         const comments = globalState?.commentsData?.filter((item: any) => item?.listingId !== movieOrSeriesId)
-        console.log({ commentsData, comments, updatedCommentsData });
         setGlobalState((prev: any) => {
             return {
                 ...prev,

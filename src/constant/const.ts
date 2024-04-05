@@ -92,3 +92,4 @@ export const AVAILABLE_YEARS = new Array(NUMBER_OF_YEAR_AVAIALABLE)
   }));
 
 export const SCROLL_BY = 250;
+export const TRANSITION_TIME = 300;

@@ -1,27 +1,29 @@
 "use client"
 
-import React, { useCallback, useContext } from 'react';
+import React, { useCallback, useContext, useMemo } from 'react';
+import dynamic from "next/dynamic";
 import { InformationCircleIcon } from '@heroicons/react/24/outline';
 
 import PlayButton from '@/components/PlayButton/PlayButton';
 import { Movies } from '@prisma/client';
 import { GlobalContext } from '@/context/GlobalContext';
 import { getRandomId, showLimitedText } from '@/libs/utils/utils';
+import { GlobalStateType } from '@/Types/ContextTypes';
 
 interface BillboardProps {
     allMoviesAndSeries: Movies[] | null
 }
 
 const Billboard: React.FC<BillboardProps> = ({ allMoviesAndSeries }) => {
-    //@ts-ignore
-    const { globalState, setGlobalState } = useContext(GlobalContext);
+    const contextData: GlobalStateType = useContext(GlobalContext)!;
+    const { setGlobalState } = contextData;
 
     if (!allMoviesAndSeries) {
         return <p>Something went wrong!</p>
     }
 
     const moviesSize = allMoviesAndSeries?.length;
-    const data = allMoviesAndSeries[Math.floor(getRandomId() % moviesSize)];
+    const data = useMemo(() => allMoviesAndSeries[Math.floor(getRandomId() % moviesSize)], []);
 
     const handleOpenModal = useCallback(() => {
         setGlobalState((prev: any) => {
@@ -74,4 +76,5 @@ const Billboard: React.FC<BillboardProps> = ({ allMoviesAndSeries }) => {
         </div>
     )
 }
-export default Billboard;
+
+export default dynamic(() => Promise.resolve(Billboard), { ssr: false })

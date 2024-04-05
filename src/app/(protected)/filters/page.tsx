@@ -9,22 +9,23 @@ import Heading from '@/components/Headers/Heading';
 import MovieList from '@/components/MovieList/MovieList';
 import Select from '@/components/Select/Select';
 import StarRating from '@/components/StarRating/StarRating';
+
 import useFilteredMoviesSeries from '@/hooks/useFilteredMoviesSeries';
 import { compareStrings, getDuration } from '@/libs/utils/utils';
 import { AVAILABLE_RESOLUTIONS_OPTIONS, AVAILABLE_YEARS, DIRECTOR_OPTIONS_ARRAY, GENRE_OPTIONS_ARRAY, LANGUAGES_OPTIONS_ARRAY, MOVIE_TYPE, SERIES_TYPE } from '@/constant/const';
 
 const FiltersPage = () => {
-    const [rating, setRating] = useState(1);// star selection
-    const [langauge, setLanguage] = useState("");//drop-down
-    const [resolution, setResolution] = useState("1080p");//chips
-    const [directedBy, setDirectedBy] = useState(""); // drop down
+    const [rating, setRating] = useState(1);
+    const [langauge, setLanguage] = useState("");
+    const [resolution, setResolution] = useState("1080p");
+    const [directedBy, setDirectedBy] = useState("");
     const [releasedAfter, setReleasedAfter] = useState(1950);
     const [releasedBefore, setReleasedBefore] = useState(2024);
-    const [genre, setGenre] = useState(""); // dropdown
-    const [duration, setDuration] = useState(1); // slider
-    const [type, setType] = useState(MOVIE_TYPE); //done
+    const [genre, setGenre] = useState("");
+    const [duration, setDuration] = useState(1);
+    const [type, setType] = useState(MOVIE_TYPE);
 
-    const { onFilterApplyHanlder, data, isLoading, error } = useFilteredMoviesSeries();
+    const { onFilterApplyHanlder, data, } = useFilteredMoviesSeries();
 
     const selectedChipStyles = 'text-red-700';
 
@@ -41,6 +42,7 @@ const FiltersPage = () => {
             type
         });
     }
+    console.log({ type })
 
     return (
         <div className='pt-40 pb-40 flex flex-col gap-9'>
@@ -73,7 +75,9 @@ const FiltersPage = () => {
                         </div>
                         <div className='w-full'>
                             <input type="range" min="0" max="240" value={duration}
-                                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setDuration(e?.target?.value)} className='min-w-[200px] w-full accent-red-600' />
+                                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setDuration(+e?.target?.value)}
+                                className='min-w-[200px] w-full accent-red-600'
+                            />
                         </div>
                     </div>
                     <div className='flex flex-col gap-6'>
@@ -81,7 +85,7 @@ const FiltersPage = () => {
                         <Select title='Released Before' options={AVAILABLE_YEARS.filter(year => year?.value >= +releasedAfter)} onChange={setReleasedBefore} customStyles='justify-between' value={releasedBefore} />
                     </div>
                 </div>
-                <Button label='Apply' onClick={onFilterApply} customStyles='w-fit p-3 font-bold min-w-[100px] m-auto' />
+                <Button label='Apply' onClick={onFilterApply} customStyles='w-fit p-3 font-bold min-w-[100px] m-auto max-w-[200px]' />
             </div>
             <hr />
             {

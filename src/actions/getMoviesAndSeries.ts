@@ -105,8 +105,6 @@ export const getMoviesAndSeries = async (props?: IMoviesAndSeries) => {
       };
     }
 
-    console.log({ query });
-
     const res = await prisma.movies.findMany({
       where: query,
       orderBy: [
@@ -116,7 +114,6 @@ export const getMoviesAndSeries = async (props?: IMoviesAndSeries) => {
       ],
     });
 
-    console.log({ res });
     return res;
   } catch (error: any) {
     console.log("Error while getting movies and series: " + error);

@@ -24,7 +24,7 @@ const AddCommentSection: React.FC<AddCommentSectionProps> = ({ setCommetsData, c
 
   return (
     <div className="p-4 border-[1px] border-white rounded-xl flex flex-col gap-3 items-start">
-      <p className="text-lg text-slate-300 font-medium">Add new Comment</p>
+      <p className="text-md text-slate-300 font-medium">Add new Comment</p>
       <textarea
         value={textData}
         name="comment"

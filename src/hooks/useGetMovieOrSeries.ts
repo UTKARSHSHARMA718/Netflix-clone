@@ -14,7 +14,6 @@ const useGetMovieOrSeries = () => {
     setIsLoading(true);
     try {
       const res = await getSingleMovieSeries({ movieOrSeriesId: id });
-      console.log({res, id})
       setData(res);
     } catch (err: any) {
       setError(err);
