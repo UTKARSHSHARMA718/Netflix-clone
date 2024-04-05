@@ -32,7 +32,7 @@ const Comment: React.FC<CommentsProps> = ({
     allCommentsData,
     setCommetsData,
 }) => {
-    const haveReplies = replies?.length > 0;
+    const allReplies = replies?.filter(v => v);
     const [isReplySectionOpen, setIsReplySectionOpen] = useState(false);
     const [isShowAllReplies, setIsShowAllReplies] = useState(false);
     const [replyText, setReplyText] = useState("");
@@ -63,18 +63,18 @@ const Comment: React.FC<CommentsProps> = ({
     }
 
     const deleteCommentOrReply = () => {
-        const updatedValue = allCommentsData?.comments?.map((item: any) => {
+        let updatedValue = allCommentsData?.comments?.map((item: any) => {
             return deleteComment(item, commentId);
         });
+        updatedValue = updatedValue?.filter(v=>v)
         setCommetsData(updatedValue)
     }
-    console.log({ allCommentsData })
 
     return (
         <div className="p-2 flex flex-col gap-2 border-[1px] border-red-400 rounded-xl w-full bg-slate-800">
             <div className="flex flex-col gap-3 w-full">
                 <div>
-                    <p className="text-white font-medium text-md">{text}</p>
+                    <p className="text-white font-medium text-sm">{text}</p>
                 </div>
                 <div className="flex gap-3">
                     <p className="cursor-pointer" onClick={toggleLike}>{isLiked ? <>❤️</> : <>🤍</>}</p>
@@ -83,7 +83,7 @@ const Comment: React.FC<CommentsProps> = ({
                     {isReplySectionOpen && (
                         <div className="w-full flex flex-col gap-3 items-start">
                             <textarea
-                                className="w-3/4 outline-none rounded-md p-1"
+                                className="w-3/4 outline-none rounded-md p-1 text-sm"
                                 value={replyText}
                                 onChange={(e) => setReplyText(e?.target?.value)}
                             ></textarea>
@@ -95,12 +95,12 @@ const Comment: React.FC<CommentsProps> = ({
                     )}
                 </div>
             </div>
-            {haveReplies && (
+            {!!allReplies?.length && (
                 <div className="p-1 flex flex-col items-start">
                     <button className="text-xs text-slate-300 font-medium" onClick={toggleShowReply}>{isShowAllReplies ? "Hide" : "Show"} replies</button>
                     {isShowAllReplies && (
                         <div className="flex flex-col gap-4 pl-[12px] w-full pt-4">
-                            {replies?.filter(v => v)?.map((reply) => {
+                            {allReplies?.map((reply) => {
                                 return (
                                     <Comment
                                         key={reply?.id}

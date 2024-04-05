@@ -15,7 +15,7 @@ const useComments = () => {
       };
 
       let currentItems = tree?.comments;
-      currentItems = [...(currentItems||[]), { ...newNode }];
+      currentItems = [...(currentItems || []), { ...newNode }];
 
       return {
         ...tree,
@@ -30,7 +30,7 @@ const useComments = () => {
 
     return {
       ...tree,
-      comments: updatedTree,
+      comments: updatedTree||[],
     };
   };
 
@@ -52,35 +52,20 @@ const useComments = () => {
       comments: updatedTree,
     };
   };
-
-  const isParent = (item: any, id: string | number) => {
-    return Boolean(item?.subFolder?.find((v:any) => v.id === id));
-  };
-
-  const isRoot = (item: any, id: string | number) => {
-    return item?.id === id;
-  };
-
+  
   const deleteComment = (tree: any, requiredId: string | number) => {
-    // have to reach till parent node and then we have to remove the child
-    if (isRoot(tree, requiredId)) {
+    if(tree?.id === requiredId) {
       return null;
-    }
-    if (isParent(tree, requiredId)) {
-      let filteredData = tree?.comments?.filter((v:any) => v.id !== requiredId);
-      return {
-        ...tree,
-        comments: filteredData,
-      };
     }
 
     let updatedData = [];
-    updatedData = tree?.comments?.map((v:any) => {
+    updatedData = tree?.comments?.map((v: any) => {
       return deleteComment(v, requiredId);
     });
+
     return {
       ...tree,
-      comments: updatedData,
+      comments:  updatedData||[],
     };
   };
 

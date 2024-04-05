@@ -12,7 +12,6 @@ interface AppContent {
 }
 
 const AppContent: React.FC<AppContent> = ({ currentUser }) => {
-    console.log({currentUser});
     const router = useRouter();
     // TODO: try to fix this
     // if (!currentUser) {

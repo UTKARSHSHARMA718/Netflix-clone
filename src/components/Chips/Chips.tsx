@@ -11,7 +11,7 @@ const Chips: React.FC<ChipsProps> = ({ label, onClick, customStyles, isCursorPoi
 
     return (
         <div {...{ onClick }} className='px-2 py-1 bg-black w-fit rounded-lg'>
-            <p className={`${customStyles} text-white font-medium ${isCursorPointerRequired ? "cursor-pointer" : ""}`}>{label}</p>
+            <p className={`${customStyles ? customStyles : 'text-white'} font-medium ${isCursorPointerRequired ? "cursor-pointer" : ""}`}>{label}</p>
         </div>
     )
 }

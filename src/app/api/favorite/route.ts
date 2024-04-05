@@ -7,7 +7,7 @@ import { getCurrentUser } from "@/actions/getCurrentUser";
 export async function POST(req: NextRequest) {
   try {
     const currentUser = await getCurrentUser();
-
+    
     const body = await req.json();
     const moviesOrSeriesId = body?.id;
 

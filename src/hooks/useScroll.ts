@@ -12,12 +12,12 @@ const useScroll = () => {
     const rightSideLimit =
       scrollContaier?.scrollWidth - scrollContaier?.clientWidth;
     const scrollPosition = scrollContaier?.scrollLeft || 0;
-    if (rightSideLimit - 100 <= scrollPosition) {
+    if (rightSideLimit - 150 <= scrollPosition) {
       setIsRightArrowActive(false);
     } else {
       setIsRightArrowActive(true);
     }
-    if (scrollPosition === 0) {
+    if (scrollPosition - 100 <= 0) {
       setIsLeftArrowActive(false);
     } else {
       setIsLeftArrowActive(true);

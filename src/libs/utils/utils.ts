@@ -30,7 +30,7 @@ export const getHumanReadableDate = (date: Date) => {
 };
 
 export const getRandomId = () => {
-  return Math.ceil(Math.random() * 10000);
+  return Math.ceil(Math.random() * 1000000);
 };
 
 export const getDuration = (value: number) => {

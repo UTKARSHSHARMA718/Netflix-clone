@@ -1,5 +1,4 @@
-import React, { useEffect } from 'react'
-import { useInView } from 'react-intersection-observer';
+import React from 'react'
 
 type GridViewProps = {
     children: React.ReactElement | null;
@@ -18,8 +17,7 @@ const GridView: React.FC<GridViewProps> = (props) => {
         md:grid-cols-3
         lg:grid-cols-4
         xl:grid-cols-5
-        2xl:grid-cols-6
-        gap-4
+        gap-14
         ">
             {children}
         </div>

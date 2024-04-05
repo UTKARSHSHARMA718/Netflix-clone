@@ -1,12 +1,13 @@
 import React from 'react'
 
+import CommentsSection from '@/containers/CommentsSection/CommentsSection';
 import Info from '@/components/Info/Info';
 import MovieList from '@/components/MovieList/MovieList';
 import StarRating from '@/components/StarRating/StarRating';
+
 import getSingleMovieSeries from '@/actions/getSingleMovieSeries';
 import { getMoviesAndSeries } from '@/actions/getMoviesAndSeries';
 import { getCommaSepratedString, getFullLanguageName, getHumanReadableDate } from '@/libs/utils/utils';
-import CommentsSection from '@/containers/CommentsSection/CommentsSection';
 
 interface DetailsProps {
     params: { movieOrSeriesId: string; }
@@ -17,7 +18,6 @@ const Details: React.FC<DetailsProps> = async ({ params }) => {
     const data = await getSingleMovieSeries({ movieOrSeriesId });
     let similarShowsData = await getMoviesAndSeries({ genre: data?.genre })
     similarShowsData = similarShowsData?.filter(item => item?.id !== movieOrSeriesId) || [];
-    console.log({ data });
 
     const infoArray = [
         { title: "Title", value: data?.title },
@@ -35,11 +35,11 @@ const Details: React.FC<DetailsProps> = async ({ params }) => {
         <div className='max-w-[1200px] m-auto pt-20 rounded-xl overflow-hidden p-4 gap-8 flex flex-col'>
             <div>
                 <video src={data?.videoUrl} className='rounded-xl h-full w-full' autoPlay controls />
-                <div className='gap-4 py-5 px-4 grid grid-cols-1 md:grid-cols-2'>
+                <div className='gap-4 py-5 grid grid-cols-1 md:grid-cols-2'>
                     {infoArray?.map(info => <Info title={info?.title} value={info?.value!} />)}
-                    <StarRating rating={data?.rating!} />
+                    <StarRating rating={data?.rating!} isAlignVerticleForSmallScreens={false}/>
                 </div>
-                <div className='py-5 px-4'>
+                <div className='py-5'>
                     <Info title="Description" value={data?.description!} />
                 </div>
             </div>
