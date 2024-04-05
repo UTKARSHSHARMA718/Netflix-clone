@@ -22,7 +22,7 @@ const Select: React.FC<SelectProps> = ({ options, title, onChange, value, custom
             <select className='p-1 rounded-lg font-medium text-white bg-slate-600 outline-none' onChange={(e) => onChange(e?.target?.value)} value={value}>
                 {
                     options?.map((option: IOptions) => {
-                        return <option value={option?.value} selected={option?.isSelected}>{option?.label}</option>
+                        return <option value={option?.value} selected={option?.isSelected} key={option?.label}>{option?.label}</option>
                     })
                 }
             </select>

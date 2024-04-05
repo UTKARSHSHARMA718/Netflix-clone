@@ -15,7 +15,7 @@ interface StarRatingProps {
     isAlignVerticleForSmallScreens?: boolean;
 }
 
-const StarRating: React.FC<StarRatingProps> = ({ rating, isLabelRequired = true, onClick, numberOfStars = 5, isAlignVerticleForSmallScreens=true }) => {
+const StarRating: React.FC<StarRatingProps> = ({ rating, isLabelRequired = true, onClick, numberOfStars = 5, isAlignVerticleForSmallScreens = true }) => {
     const lowerBound = Math.floor(rating);
     const isHalfStar = lowerBound < rating;
     const hollowStars = numberOfStars - Math.ceil(rating);
@@ -26,7 +26,7 @@ const StarRating: React.FC<StarRatingProps> = ({ rating, isLabelRequired = true,
             <div className='flex gap-3 items-center'>
                 {
                     new Array(lowerBound)?.fill(1)?.map((star, index) => {
-                        return <Image src={Star.src} width={20} height={20} alt="golden star" onClick={() => onClick?.(index + 1)} />
+                        return <Image src={Star.src} width={20} height={20} alt="golden star" onClick={() => onClick?.(index + 1)} key={`Golder-star-${index}`} />
                     })
                 }
                 {
@@ -34,7 +34,7 @@ const StarRating: React.FC<StarRatingProps> = ({ rating, isLabelRequired = true,
                 }
                 {
                     new Array(hollowStars)?.fill(1)?.map((star, index) => {
-                        return <Image src={HollowStar?.src} width={24} height={24} alt="Half star" onClick={() => onClick?.(lowerBound + index + 1)} />
+                        return <Image src={HollowStar?.src} width={24} height={24} alt="Half star" onClick={() => onClick?.(lowerBound + index + 1)} key={`Hollow-star-${index}`} />
                     })
                 }
             </div>

@@ -36,7 +36,7 @@ const Details: React.FC<DetailsProps> = async ({ params }) => {
             <div>
                 <video src={data?.videoUrl} className='rounded-xl h-full w-full' autoPlay controls />
                 <div className='gap-4 py-5 grid grid-cols-1 md:grid-cols-2'>
-                    {infoArray?.map(info => <Info title={info?.title} value={info?.value!} />)}
+                    {infoArray?.map(info => <Info title={info?.title} value={info?.value!} key={info?.title}/>)}
                     <StarRating rating={data?.rating!} isAlignVerticleForSmallScreens={false}/>
                 </div>
                 <div className='py-5'>

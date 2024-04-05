@@ -28,7 +28,7 @@ const ViewAllContainer: React.FC<ViewAllContainerProps> = ({ data, heading, subH
                 <>
                     {
                         data?.map(item => {
-                            return <MovieAndSeriesCard data={item} />
+                            return <MovieAndSeriesCard data={item} key={item?.id}/>
                         })
                     }
                 </>

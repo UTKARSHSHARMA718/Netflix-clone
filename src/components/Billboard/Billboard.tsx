@@ -18,12 +18,9 @@ const Billboard: React.FC<BillboardProps> = ({ allMoviesAndSeries }) => {
     const contextData: GlobalStateType = useContext(GlobalContext)!;
     const { setGlobalState } = contextData;
 
-    if (!allMoviesAndSeries) {
-        return <p>Something went wrong!</p>
-    }
 
-    const moviesSize = allMoviesAndSeries?.length;
-    const data = useMemo(() => allMoviesAndSeries[Math.floor(getRandomId() % moviesSize)], []);
+    const moviesSize = allMoviesAndSeries?.length || 1;
+    const data = useMemo(() => allMoviesAndSeries?.[Math.floor(getRandomId() % moviesSize)], []);
 
     const handleOpenModal = useCallback(() => {
         setGlobalState((prev: any) => {
@@ -35,6 +32,9 @@ const Billboard: React.FC<BillboardProps> = ({ allMoviesAndSeries }) => {
         })
     }, [data?.id]);
 
+    if (!allMoviesAndSeries || !allMoviesAndSeries.length) {
+        return <p>Something went wrong!</p>
+    }
 
 
     return (
@@ -45,10 +45,10 @@ const Billboard: React.FC<BillboardProps> = ({ allMoviesAndSeries }) => {
                     {data?.title}
                 </p>
                 <p className="text-white text-[8px] md:text-lg mt-3 md:mt-8 w-[90%] md:w-[80%] lg:w-[50%] drop-shadow-xl">
-                    {showLimitedText(data?.description, 120)}
+                    {showLimitedText(data?.description || "", 120)}
                 </p>
                 <div className="flex flex-row items-center mt-3 md:mt-4 gap-3">
-                    <PlayButton movieOrSeriesId={data?.id} />
+                    <PlayButton movieOrSeriesId={data?.id || ""} />
                     <button
                         onClick={handleOpenModal}
                         className="

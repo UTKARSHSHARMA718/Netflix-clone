@@ -56,7 +56,7 @@ const FiltersPage = () => {
                         <p className='text-red-500 font-semibold capitalize'>Resolution:</p>
                         <div className='flex gap-6 items-center'>
                             {AVAILABLE_RESOLUTIONS_OPTIONS?.map(resolutionItem => {
-                                return <Chips isCursorPointerRequired onClick={() => setResolution(resolutionItem)} label={resolutionItem} customStyles={compareStrings(resolutionItem, resolution) ? selectedChipStyles : ""} />
+                                return <Chips isCursorPointerRequired onClick={() => setResolution(resolutionItem)} label={resolutionItem} customStyles={compareStrings(resolutionItem, resolution) ? selectedChipStyles : ""} key={resolutionItem}/>
                             })}
                         </div>
                     </div>
