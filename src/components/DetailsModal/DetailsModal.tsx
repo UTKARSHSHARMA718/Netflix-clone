@@ -24,7 +24,7 @@ const DetailsModal: React.FC<DetailsModal> = ({ visible, onClose }) => {
     const router = useRouter();
     // @ts-ignore
     const { globalState, setGlobalState } = useContext(GlobalContext);
-    const { getMoviesOrSeriesData, data } = useGetMovieOrSeries();
+    const { getMoviesOrSeriesData, data, isLoading } = useGetMovieOrSeries();
 
     const moviesOrSeriesId = globalState?.movieOrSeriesId;
     const isFavorite = globalState?.userData?.favoriteIds?.includes(moviesOrSeriesId);
@@ -56,9 +56,13 @@ const DetailsModal: React.FC<DetailsModal> = ({ visible, onClose }) => {
         return null;
     }
 
+    if (isLoading) {
+        return <p className='text-white font-bold text-lg'>Loading....</p>
+    }
+
     return (
-        <div className="z-50 mt-16 transition duration-300 bg-black bg-opacity-80 flex justify-center items-center overflow-x-hidden overflow-y-auto fixed inset-0">
-            <div className="relative md:w-auto w-11/12 mx-auto max-w-3xl overflow-hidden">
+        <div className="z-50 transition duration-300 bg-black bg-opacity-80 flex justify-center items-center overflow-x-hidden overflow-y-auto fixed inset-0">
+            <div className="relative md:w-auto w-11/12 mx-auto max-w-3xl overflow-hidden mt-16">
                 <div className={`${isVisible ? 'scale-100' : 'scale-0'} transform duration-300 relative flex-auto bg-zinc-900 drop-shadow-md`}>
                     <div className="relative h-64 md:h-96">
                         <video poster={data?.thumbnailUrl} autoPlay muted loop src={data?.videoUrl} className="w-full brightness-[60%] object-cover h-full" />
@@ -74,7 +78,7 @@ const DetailsModal: React.FC<DetailsModal> = ({ visible, onClose }) => {
                                 <div>
                                     <Button label='Visit' onClick={visitHandler} isMarginTopRequired={false} customStyles='px-4 py-0 md:py-3' />
                                 </div>
-                                <FavoriteButton movieOrSeriesId={data?.id || ""} {...{isFavorite}} />
+                                <FavoriteButton movieOrSeriesId={data?.id || ""} {...{ isFavorite }} />
                             </div>
                         </div>
                     </div>

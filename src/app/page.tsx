@@ -1,12 +1,16 @@
 
+import { redirect } from "next/navigation";
+
 import AppContent from "@/containers/AppContent/AppContent";
 import Billboard from "@/components/Billboard/Billboard";
 import Navbar from "@/containers/Navbar/Navbar";
 import Slider from "@/components/Slider/Slider";
+
 import getFavoriteMoviesSeries from "@/actions/getFavoriteMoviesSeries";
 import { getMoviesAndSeries } from '@/actions/getMoviesAndSeries';
 import { MOVIE_TYPE, SERIES_TYPE } from "@/constant/const";
 import { getCurrentUser } from "@/actions/getCurrentUser";
+import { AUTH } from "@/constant/routeNames";
 
 export default async function Home() {
   const allMoviesAndSeries = await getMoviesAndSeries({});
@@ -15,6 +19,10 @@ export default async function Home() {
   const allMovies = allMoviesAndSeries?.filter(item => item?.type === MOVIE_TYPE);
   const allSeries = allMoviesAndSeries?.filter(item => item?.type === SERIES_TYPE);
   const currentUser = await getCurrentUser();
+
+  if(!currentUser){
+    redirect(AUTH);
+  }
 
   return (
     <>

@@ -57,7 +57,7 @@ const Navbar: React.FC<INavbar> = ({ currentUser }) => {
                 <Image src="/images/logo.png" width={200} height={200} className={`h-4 lg:h-7 ${styles.logo} cursor-pointer`} alt="Logo" onClick={() => router?.push(HOME)} />
                 <div className={`flex-row ml-8 gap-7 hidden md:flex ${styles.navlinksContainer}`}>
                     {MOBILE_MENU_OPTIONS?.map(items => {
-                        return <NavbarItem label={items?.label} key={items?.label} active={compareStrings(pathName, items?.routeName)} onClick={() => router?.push(items?.routeName)} />
+                        return <NavbarItem label={items?.label} key={items?.label} active={compareStrings(pathName, items?.routeName)} href={items?.routeName} />
                     })}
                 </div>
                 <div onClick={toggleMobileMenu} className={`flex flex-row items-center gap-2 ml-8 cursor-pointer relative ${styles.mobileOptions}`}>
@@ -77,7 +77,7 @@ const Navbar: React.FC<INavbar> = ({ currentUser }) => {
                             <Image src="/images/default-blue.png" width={50} height={50} alt="user-image" />
                         </div>
                         <ChevronDownIcon className={`w-4 text-white fill-white transition ${showAccountMenu ? 'rotate-180' : 'rotate-0'}`} />
-                        <AccountMenu visible={showAccountMenu} {...{currentUser}}/>
+                        <AccountMenu visible={showAccountMenu} {...{ currentUser }} />
                     </div>
                 </div>
             </div>

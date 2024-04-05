@@ -33,7 +33,7 @@ const MovieAndSeriesCard: React.FC<MovieCardProps> = ({ data, onMouseOver, onMou
     }
 
     return (
-        <div className="group bg-zinc-900 col-span relative h-[12vw] min-h-[200px] min-w-[250px] w-1/4" {...{ onMouseOver, onMouseLeave }} >
+        <div className="group m-auto bg-zinc-900 col-span relative h-[12vw] min-h-[200px] min-w-[250px] w-1/4" {...{ onMouseOver, onMouseLeave }} >
             <img onClick={isFlowOverOnHover ? redirectToWatch : handleOpenDetailedModal} src={data.thumbnailUrl} alt="Movie" draggable={false} {...{ onMouseOver }} className={`
                 cursor-pointer
                 object-cover

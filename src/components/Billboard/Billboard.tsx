@@ -5,6 +5,7 @@ import dynamic from "next/dynamic";
 import { InformationCircleIcon } from '@heroicons/react/24/outline';
 
 import PlayButton from '@/components/PlayButton/PlayButton';
+
 import { Movies } from '@prisma/client';
 import { GlobalContext } from '@/context/GlobalContext';
 import { getRandomId, showLimitedText } from '@/libs/utils/utils';

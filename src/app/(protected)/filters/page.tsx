@@ -42,7 +42,6 @@ const FiltersPage = () => {
             type
         });
     }
-    console.log({ type })
 
     return (
         <div className='pt-40 pb-40 flex flex-col gap-9'>

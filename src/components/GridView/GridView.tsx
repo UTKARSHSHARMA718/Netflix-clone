@@ -9,7 +9,7 @@ const GridView: React.FC<GridViewProps> = (props) => {
 
     return (
         <div className="
-        p-6
+        md:p-6
         grid
         grid-cols-1
         sm:grid-cols-2

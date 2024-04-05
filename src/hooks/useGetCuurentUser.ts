@@ -11,13 +11,13 @@ const useGetCurrentUser = () => {
   const [error, setError] = useState("");
 
   const getCurrentUserData = async (
-    onSuccessCallback: (user?: SafeUser | null) => void
+    onSuccessCallback?: (user?: SafeUser | null) => void
   ) => {
     setIsLoading(true);
     try {
       const res = await getCurrentUser();
       setUserData(res);
-      onSuccessCallback(res);
+      onSuccessCallback?.(res);
     } catch (err: any) {
       console.error(err);
       setError(err);
