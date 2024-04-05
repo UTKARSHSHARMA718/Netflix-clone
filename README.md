@@ -52,7 +52,7 @@ https://github.com/UTKARSHSHARMA718/Netflix-clone.git
 ### Install packages
 
 ```shell
-npm i
+npm i --force
 ```
 
 ### Setup .env file
