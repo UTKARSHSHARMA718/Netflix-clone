@@ -1,15 +1,19 @@
 "use client"
 
-import React, { useCallback, useContext } from 'react';
+import React, { useCallback, useContext, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { ChevronDownIcon } from '@heroicons/react/24/outline';
 import { PlayIcon } from '@heroicons/react/24/solid';
+import axios from 'axios';
 
 import FavoriteButton from '@/components/FavoriteBtn/FavoriteBtn';
+import { toast } from '@/containers/ToastProvider/ToastProvider';
+
 import { MovieType } from '@/Types/SafeTypes';
 import { GlobalContext } from '@/context/GlobalContext';
 import { GlobalStateType } from '@/Types/ContextTypes';
 import { WATCH } from '@/constant/routeNames';
+import { API, FAVORITE } from '@/constant/apiEndpoints';
 
 interface MovieCardProps {
     data: MovieType;
@@ -21,8 +25,10 @@ interface MovieCardProps {
 const MovieAndSeriesCard: React.FC<MovieCardProps> = ({ data, onMouseOver, onMouseLeave, isFlowOverOnHover = true }) => {
     const router = useRouter();
     const contextData: GlobalStateType = useContext(GlobalContext)!
-    const { globalState, setGlobalState } = contextData;
+    const { globalState, setGlobalState, reFetchUserData } = contextData;
     const movieOrSeriesYear = new Date(data?.releasedOn)?.getFullYear();
+
+    const [isMarkFavorite, setIsMarkFavorite] = useState(false);
 
     const isFavorite = globalState?.userData?.favoriteIds?.includes(data?.id);
 
@@ -32,8 +38,33 @@ const MovieAndSeriesCard: React.FC<MovieCardProps> = ({ data, onMouseOver, onMou
         setGlobalState((prev: any) => ({ ...prev, movieOrSeriesId: data?.id, isInfoModalOpen: true }))
     }
 
+    // TODO: make this a hook
+    const toggleFavorites = useCallback(async () => {
+        setIsMarkFavorite(true);
+        try {
+            let response;
+            const url = "/" + API + FAVORITE;
+            if (isFavorite) {
+                response = await axios.delete(url, { data: { id: data?.id } });
+            } else {
+                response = await axios.post(url, { id: data?.id });
+            }
+            if (response?.data?.ok) {
+                toast?.success(response?.data?.message);
+                reFetchUserData?.();
+                router?.refresh();
+                return;
+            }
+            toast?.error(response?.data?.message);
+        } catch (err: any) {
+            toast?.error(err?.response?.data?.message);
+        } finally {
+            setIsMarkFavorite(false);
+        }
+    }, [isFavorite, data?.id, toast]);
+
     return (
-        <div className="group m-auto bg-zinc-900 col-span relative h-[12vw] min-h-[200px] min-w-[250px] w-1/4" {...{ onMouseOver, onMouseLeave }} >
+        <div className="group m-auto bg-zinc-900 col-span relative h-[12vw] min-h-[200px] min-w-[250px]" {...{ onMouseOver, onMouseLeave }} >
             <img onClick={isFlowOverOnHover ? redirectToWatch : handleOpenDetailedModal} src={data.thumbnailUrl} alt="Movie" draggable={false} {...{ onMouseOver }} className={`
                 cursor-pointer
                 object-cover
@@ -89,12 +120,12 @@ const MovieAndSeriesCard: React.FC<MovieCardProps> = ({ data, onMouseOver, onMou
                     rounded-b-md
                     ">
                     <div className="flex flex-row items-center gap-2">
-                        <div onClick={isFlowOverOnHover ? redirectToWatch : handleOpenDetailedModal} className="cursor-pointer w-6 h-6 lg:w-10 lg:h-10 bg-white rounded-full flex justify-center items-center transition hover:bg-neutral-300">
+                        <div onClick={isFlowOverOnHover ? redirectToWatch : handleOpenDetailedModal} className={`${isMarkFavorite ? "cursor-not-allowed opacity-70" : "cursor-pointer"} w-6 h-6 lg:w-10 lg:h-10 bg-white rounded-full flex justify-center items-center transition hover:bg-neutral-300`}>
                             <PlayIcon className="text-black w-4 lg:w-6" />
                         </div>
-                        <FavoriteButton movieOrSeriesId={data?.id} {...{ isFavorite }} />
+                        <FavoriteButton {...{ isFavorite }} onClick={toggleFavorites} disabled={isMarkFavorite} />
                         {/* @ts-ignore */}
-                        <div onClick={handleOpenDetailedModal} className="cursor-pointer ml-auto group/item w-6 h-6 lg:w-10 lg:h-10 border-white border-2 rounded-full flex justify-center items-center transition hover:border-neutral-300">
+                        <div onClick={handleOpenDetailedModal} className={`${isMarkFavorite ? "cursor-not-allowed opacity-70" : "cursor-pointer"} ml-auto group/item w-6 h-6 lg:w-10 lg:h-10 border-white border-2 rounded-full flex justify-center items-center transition hover:border-neutral-300`}>
                             <ChevronDownIcon className="text-white group-hover/item:text-neutral-300 w-4" />
                         </div>
                     </div>

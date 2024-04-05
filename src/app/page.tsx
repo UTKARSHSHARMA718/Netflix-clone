@@ -5,6 +5,7 @@ import AppContent from "@/containers/AppContent/AppContent";
 import Billboard from "@/components/Billboard/Billboard";
 import Navbar from "@/containers/Navbar/Navbar";
 import Slider from "@/components/Slider/Slider";
+import ToastProvider from "@/containers/ToastProvider/ToastProvider";
 
 import getFavoriteMoviesSeries from "@/actions/getFavoriteMoviesSeries";
 import { getMoviesAndSeries } from '@/actions/getMoviesAndSeries';
@@ -20,12 +21,13 @@ export default async function Home() {
   const allSeries = allMoviesAndSeries?.filter(item => item?.type === SERIES_TYPE);
   const currentUser = await getCurrentUser();
 
-  if(!currentUser){
+  if (!currentUser) {
     redirect(AUTH);
   }
 
   return (
     <>
+      <ToastProvider />
       <AppContent />
       <Navbar {...{ currentUser }} />
       <Billboard {...{ allMoviesAndSeries }} />

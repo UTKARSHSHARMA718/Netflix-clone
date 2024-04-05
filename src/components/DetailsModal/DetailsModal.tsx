@@ -2,6 +2,7 @@
 
 import React, { useCallback, useContext, useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
+import axios from 'axios';
 import { XMarkIcon } from '@heroicons/react/24/outline';
 
 import Button from '../Button/Button';
@@ -13,6 +14,8 @@ import { showLimitedText } from '@/libs/utils/utils';
 import { GlobalContext } from '@/context/GlobalContext';
 import { DETAILS } from '@/constant/routeNames';
 import { TRANSITION_TIME } from '@/constant/const';
+import { API, FAVORITE } from '@/constant/apiEndpoints';
+import { toast } from '@/containers/ToastProvider/ToastProvider';
 
 interface DetailsModal {
     visible?: boolean;
@@ -23,8 +26,10 @@ const DetailsModal: React.FC<DetailsModal> = ({ visible, onClose }) => {
     const [isVisible, setIsVisible] = useState<boolean>(!!visible);
     const router = useRouter();
     // @ts-ignore
-    const { globalState, setGlobalState } = useContext(GlobalContext);
+    const { globalState, setGlobalState, reFetchUserData } = useContext(GlobalContext);
     const { getMoviesOrSeriesData, data, isLoading } = useGetMovieOrSeries();
+
+    const [isMarkFavorite, setIsMarkFavorite] = useState(false);
 
     const moviesOrSeriesId = globalState?.movieOrSeriesId;
     const isFavorite = globalState?.userData?.favoriteIds?.includes(moviesOrSeriesId);
@@ -52,6 +57,30 @@ const DetailsModal: React.FC<DetailsModal> = ({ visible, onClose }) => {
         router?.push(`${DETAILS}/${data?.id}`)
     }
 
+    const toggleFavorites = useCallback(async () => {
+        setIsMarkFavorite(true);
+        try {
+            let response;
+            const url = "/" + API + FAVORITE;
+            if (isFavorite) {
+                response = await axios.delete(url, { data: { id: data?.id } });
+            } else {
+                response = await axios.post(url, { id: data?.id });
+            }
+            if (response?.data?.ok) {
+                toast?.success(response?.data?.message);
+                reFetchUserData?.();
+                router?.refresh();
+                return;
+            }
+            toast?.error(response?.data?.message);
+        } catch (err: any) {
+            toast?.error(err?.response?.data?.message);
+        } finally {
+            setIsMarkFavorite(false);
+        }
+    }, [isFavorite, data?.id, toast]);
+
     if (!visible) {
         return null;
     }
@@ -74,11 +103,11 @@ const DetailsModal: React.FC<DetailsModal> = ({ visible, onClose }) => {
                                 {data?.title}
                             </p>
                             <div className="flex flex-row gap-4 items-center">
-                                <PlayButton movieOrSeriesId={data?.id || ""} />
+                                <PlayButton movieOrSeriesId={data?.id || ""} disabled={isMarkFavorite}/>
                                 <div>
-                                    <Button label='Visit' onClick={visitHandler} isMarginTopRequired={false} customStyles='px-4 py-0 md:py-3' />
+                                    <Button label='Visit' disabled={isMarkFavorite} onClick={visitHandler} isMarginTopRequired={false} customStyles='px-4 py-0 md:py-3' />
                                 </div>
-                                <FavoriteButton movieOrSeriesId={data?.id || ""} {...{ isFavorite }} />
+                                <FavoriteButton {...{ isFavorite }} onClick={toggleFavorites} disabled={isMarkFavorite} />
                             </div>
                         </div>
                     </div>

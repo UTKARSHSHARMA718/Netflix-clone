@@ -26,6 +26,9 @@ const Auth = () => {
     const isButtonDisabled = variant === LOGIN_TYPE ? (!userEmail || !userPassword) : (!userEmail || !userPassword || !userName)
 
     const toggleVariant = useCallback(() => {
+        setUserPassword("");
+        setUserEmail("");
+        setUserEmail("");
         setVariant((currentVariant) => currentVariant === LOGIN_TYPE ? REGISTER_TYPE : LOGIN_TYPE);
     }, []);
 
@@ -43,6 +46,7 @@ const Auth = () => {
                 router.push(PROFILES);
                 return;
             }
+            toast.error("Inavalid credentials");
         } catch (error: any) {
             toast.error(error?.message);
         }
@@ -61,6 +65,7 @@ const Auth = () => {
                 toast.success(res?.data?.message);
                 loginUserHandler();
             }
+            toast.error(res?.data?.message);
         } catch (error: any) {
             toast.error(error?.response?.data?.message);
         }

@@ -6,14 +6,16 @@ import { PlayIcon } from '@heroicons/react/24/solid';
 
 interface PlayButtonProps {
   movieOrSeriesId: string;
+  disabled?: boolean;
 }
 
-const PlayButton: React.FC<PlayButtonProps> = ({ movieOrSeriesId }) => {
+const PlayButton: React.FC<PlayButtonProps> = ({ movieOrSeriesId, disabled }) => {
   const router = useRouter();
 
   return (
-    <button 
+    <button
       onClick={() => router.push(`/watch/${movieOrSeriesId}`)}
+      {...{ disabled }}
       className="
         bg-white 
         rounded-md 
@@ -27,10 +29,12 @@ const PlayButton: React.FC<PlayButtonProps> = ({ movieOrSeriesId }) => {
         items-center
         hover:bg-neutral-300
         transition
+        disabled:opacity-70
+        disabled:cursor-not-allowed
         "
-      >
-        <PlayIcon className="w-4 md:w-7 text-black mr-1" />
-        Play
+    >
+      <PlayIcon className="w-4 md:w-7 text-black mr-1" />
+      Play
     </button>
   );
 }
