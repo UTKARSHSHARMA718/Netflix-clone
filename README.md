@@ -19,7 +19,7 @@
 
 This is a repository for a FullStack Netflix Clone built using React, NextJS, TailwindCSS & Prisma.
 
-[VIDEO TUTORIAL](https://youtu.be/hAlvjQbAdMc)
+[VIDEO TUTORIAL](https://drive.google.com/file/d/1eYwcQ2pJrqPonzXOPVarY3goiHLpXcpw/view?usp=sharing)
 
 ### Stack/Technologies:
 
