@@ -54,6 +54,7 @@ const DetailsModal: React.FC<DetailsModal> = ({ visible, onClose }) => {
                 movieOrSeriesId: null,
             }
         });
+        handleClose();
         router?.push(`${DETAILS}/${data?.id}`)
     }
 
@@ -103,7 +104,7 @@ const DetailsModal: React.FC<DetailsModal> = ({ visible, onClose }) => {
                                 {data?.title}
                             </p>
                             <div className="flex flex-row gap-4 items-center">
-                                <PlayButton movieOrSeriesId={data?.id || ""} disabled={isMarkFavorite}/>
+                                <PlayButton movieOrSeriesId={data?.id || ""} disabled={isMarkFavorite} />
                                 <div>
                                     <Button label='Visit' disabled={isMarkFavorite} onClick={visitHandler} isMarginTopRequired={false} customStyles='px-4 py-0 md:py-3' />
                                 </div>
