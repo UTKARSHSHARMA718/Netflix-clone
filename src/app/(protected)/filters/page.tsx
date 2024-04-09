@@ -44,7 +44,7 @@ const FiltersPage = () => {
     }
 
     return (
-        <div className='pt-40 pb-40 flex flex-col gap-9'>
+        <div className='pt-20 md:pt-40 pb-40 flex flex-col gap-9'>
             <div className='p-4 flex flex-col gap-8'>
                 <Heading heading='Filters' subHeading='Search movie/series by filters' customHeadingStyles='text-white' isHeadingCenter isSubHeadingCenter />
                 <div className='grid grid-cols-1 md:grid-cols-2 gap-12 m-auto max-w-[800px] p-6 rounded-xl shadow-md shadow-red-400 w-5/6'>

@@ -75,7 +75,7 @@ const AuthContent = () => {
     return (
         <div className={`relative h-full w-full bg-full bg-[url('/images/hero.jpg')] bg-no-repeat bg-fixed bg-cover`}>
             <div className='bg-black w-full h-full lg:bg-opacity-50'>
-                <nav className="px-12 py-5">
+                <nav className="flex justify-center md:block px-12 py-5">
                     <Image src={Logo?.src} className='h-12' width={200} height={200} alt='netflix-logo' />
                 </nav>
                 <div className="flex justify-center">
@@ -94,7 +94,7 @@ const AuthContent = () => {
                             <Input
                                 id="email"
                                 type="email"
-                                label="Email address or phone number"
+                                label="Email"
                                 value={userEmail}
                                 onChange={(e: any) => setUserEmail(e.target.value)}
                             />
